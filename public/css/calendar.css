@@ -1,0 +1,57 @@
+.calendarWrapper {
+    padding: 0px 0px 0px 15px;
+    width: 100%;
+}
+    .calendarWrapper ul{
+        margin-top: 10px;
+        /* display: flex;
+        flex-wrap:wrap; */
+        list-style: none;
+        margin-left: 5%;
+    }
+    .calendarWrapper ul li {
+        background: #424242;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        overflow-y: auto;
+        width: 13%;
+        height: 120px;
+        float: left;
+    }
+    .calendarWrapper ul li:active{
+        opacity:1 !important; 
+        color: transparent; /* make the text invisible */
+        user-select: none; /* prevent selection of the text */
+    }
+.dayTitle{
+    color:white;
+}
+.dayObjects{
+    width: 100%;
+}
+    .dayObjects div{
+        background: rgba(255, 255, 255, .8);
+        margin-bottom: 3px;
+        border-radius: 3px;
+        font-weight: bold;
+    }
+
+.calendarOutputWrapper {
+    width: 100%;
+    float: left;
+}
+
+.eventWrapper, .taskWrapper{
+    text-align: left;
+    background: white;
+    padding: 15px 15px 0px 15px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.taskTime, .eventTime{
+    width: 250px !important;
+}
