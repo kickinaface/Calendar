@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/superUtil.js"></script>
     <script src="js/calendar.js"></script>
-    <script src="Years/2025/June/externalCalendar.js"></script>
+    <script src="Years/2025/September/externalCalendar.js"></script>
     <title>Christopher's Digital Solutions: Calendar</title>
 </head>
 <body>
@@ -38,47 +38,81 @@
     </div>
     <br>    
     <div class="calendarOutputWrapper" style="margin:15px;">
-        <br>
         <center>
-            <h2>Calendar JSON Output:</h2><br>
-            <textarea name="calendarOutput" id="calendarOutput" style="width:90%; height:100px;"></textarea>
             <br>
-            <button onclick="calendar.importJSON();">Import JSON</button>
+            <div class="currentSeason">
+                <h3>Current Season (NTKJIDA):</h3>
+                <ul id="seasonList">
+                    <li></li>
+                    <li><div>✖</div></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <br><br><br><br><br><br>
+            <div class="previousMonthsWrapper">
+                <h3>Previous Months</h3>
+                <ul>
+                    <li><a href="/Years/2025/April/">April</a></li>
+                    <li><a href="/Years/2025/May/">May</a></li>
+                    <li><a href="/Years/2025/June/">June</a></li>
+                    <li><a href="/Years/2025/July/">July</a></li>
+                    <li><a href="/Years/2025/August/">August</a></li>
+                </ul>
+            </div>
+            <br>
+            <button onclick="calendar.toggleSettingsControls();" id="calControlButton">⚙️ <b><span>Show Settings</span></b> 🔧🛠️</button>
         </center>
-        <br>
-        <div style="width: 100%; height: 200px; text-align: center; margin:0 auto;">
-                <h2>Apply Color Scheme:</h2>
+        <div id="calendarControls">
+            <center>
+                <h2>Sync Calendar:</h2>
+                <i>Press the sync button to backup your data into the /backup/ folder to restore data from loss. 
+                    <br>Syncronizing periodically helps to prevent data loss.</i><br>
+                <button onclick="calendar.syncCal();">Sync</button><br>
+                <br><br>
+                <h2>Calendar JSON Output:</h2><br>
+                <textarea name="calendarOutput" id="calendarOutput" style="width:90%; height:100px;"></textarea>
                 <br>
-                <p><h3>Select Color:</h3></p>
-                <select name="colorScheme" id="colorScheme">
-                    <option value="-1">Custom</option>
-                    <option value="0">Red</option>
-                    <option value="1">Orange</option>
-                    <option value="2">Yellow</option>
-                    <option value="3">Green</option>
-                    <option value="4">Blue</option>
-                    <option value="5">Purple</option>
-                    <option value="6">Pink</option>
-                    <option value="7">Charcoal</option>
-                </select>
-                <br>
-                <br>
-                <p><h3>Custom Hex Value #</h3></p>
-                <input type="text" placeholder="#DAF7A6" style="border:1px solid black; padding:5px;" id="customHexValue">
-                <br>
-                <br>
-                <p><h3>Select Inner Text Color:</h3></p>
-                <select name="innerTextColor" id="innerTextColor">
-                    <option value="white">White</option>
-                    <option value="black">Black</option>
-                </select>
-                <br>
-                <p id="functionMessage"></p>
-                <button onclick="calendar.changeTheme();">Update Theme</button>
-                <br>
+                <button onclick="calendar.importJSON();">Import JSON</button>
+            </center>
             <br>
-            <br>
+            <div style="width: 100%; height: 200px; text-align: center; margin:0 auto;">
+                    <h2>Apply Color Scheme:</h2>
+                    <br>
+                    <p><h3>Select Color:</h3></p>
+                    <select name="colorScheme" id="colorScheme">
+                        <option value="-1">Custom</option>
+                        <option value="0">Red</option>
+                        <option value="1">Orange</option>
+                        <option value="2">Yellow</option>
+                        <option value="3">Green</option>
+                        <option value="4">Blue</option>
+                        <option value="5">Purple</option>
+                        <option value="6">Pink</option>
+                        <option value="7">Charcoal</option>
+                    </select>
+                    <br>
+                    <br>
+                    <p><h3>Custom Hex Value #</h3></p>
+                    <input type="text" placeholder="#DAF7A6" style="border:1px solid black; padding:5px;" id="customHexValue">
+                    <br>
+                    <br>
+                    <p><h3>Select Inner Text Color:</h3></p>
+                    <select name="innerTextColor" id="innerTextColor">
+                        <option value="white">White</option>
+                        <option value="black">Black</option>
+                    </select>
+                    <br>
+                    <p id="functionMessage"></p>
+                    <button onclick="calendar.changeTheme();">Update Theme</button>
+                    <br>
+                <br>
+                <br>
+            </div>
         </div>
+        
     </div>
 </body>
 <script src="js/main.js"></script>

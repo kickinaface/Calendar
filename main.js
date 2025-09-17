@@ -37,6 +37,31 @@ router.route("/calSync").post(function(req, res){
 		}
 	});
 });
+// if user presses sync button, backup the externalCalendar
+router.route("/calBackup").post(function(req, res){
+	//add date time stamp to captured structure
+	const currentDate = new Date();
+	const year = currentDate.getFullYear(); // 4-digit year
+	const month = currentDate.getMonth() + 1; // Month (0-11, so add 1 for 1-12)
+	const day = currentDate.getDate(); // Day of the month (1-31)
+	const hours = currentDate.getHours(); // Hours (0-23)
+	const minutes = currentDate.getMinutes(); // Minutes (0-59)
+	const seconds = currentDate.getSeconds(); // Seconds (0-59)
+	const milliseconds = currentDate.getMilliseconds(); // Milliseconds (0-999)
+	const period = hours >= 12 ? 'PM' : 'AM';
+	const dayOfWeek = currentDate.getDay(); // Day of the week (0 for Sunday, 6 for Saturday)
+	const timestamp = ((month)+""+(day)+""+(year)+"_"+(hours)+"-"+(minutes)+"-"+(seconds)+""+(period))
+	//console.log("timestamp ", timestamp)
+
+	fs.writeFile("backup/exportedCalendar_"+timestamp+".json", JSON.stringify(req.body), 'utf-8', function(err){
+		if(err){
+			console.log('An error occured while writing your file.');
+			return console.log(err);
+		} else {
+			res.json({message:"Calendar successfully backed up and syncronized."});
+		}
+	});
+});
 
 app.use('/api', router);
 app.use(express.static(__dirname + '/public'));

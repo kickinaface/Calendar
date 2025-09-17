@@ -13,7 +13,7 @@ NodeJS & JavaScript-powered calendar.
 ## Tech
 - [JavaScript] - HTML enhanced for web apps!
 - [node.js] - evented I/O for the backend
-- [Express] - fast node.js network app framework
+- [Express] - fast node.js network app framework [@tjholowaychuk]
 
 ## Installation
 

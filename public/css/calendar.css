@@ -43,6 +43,9 @@
     width: 100%;
     float: left;
 }
+    #calendarControls{
+        display: none;
+    }
 
 .eventWrapper, .taskWrapper{
     text-align: left;
@@ -54,4 +57,50 @@
 
 .taskTime, .eventTime{
     width: 250px !important;
+}
+.previousMonthsWrapper{
+    width: 330px;
+    margin:0 auto;
+    padding-bottom:20px;
+}
+.previousMonthsWrapper ul li{
+    float: left;
+    margin-left:10px;
+    margin-right:20px;
+    list-style: none;
+}
+.currentSeason{
+}
+#seasonList{
+    list-style: none;
+    width: 150px;
+    margin-left:25px;
+}
+/* Hardcode season logic here for now */
+    #seasonList li{
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+        background-color: white;
+        float: left;
+        margin: 5px;
+        border:1px solid #ff0000;
+        font-size: 14pt;
+        font-weight: bold;
+    }
+
+/* Hardcode season logic here for now */
+#seasonList li:nth-child(2){
+    background-image: linear-gradient(white, #ff0000);
+}
+#seasonList li:nth-child(3){
+    /* background-image: linear-gradient(white, #c51622); */
+    background-color: #ff0000;
+}
+#seasonList li:nth-child(4){
+    /* background-image: linear-gradient(white, #c51622); */
+    background-color: #ff0000;
+}
+#seasonList li:nth-child(5){
+    background-image: linear-gradient(#ff0000, white);
 }

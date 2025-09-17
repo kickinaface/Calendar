@@ -10,6 +10,7 @@ function Calendar(){
     const month = today.getMonth() +1;
     const year = today.getFullYear();
     this.formattedDate = `${month}/${day}/${year}`;
+    var isControlsShown = false;
     
     var isBlackButtonText = "white";
     //
@@ -17,20 +18,66 @@ function Calendar(){
         // Take content from externalCalendar.js and build out the month
         generateMonth();
         // Get the held month data from backend and populate the calendar.
-        superUtil.grabJSON("/api/getCal", function(status, response){
-            if(status == 200){
-                // To reset the month, comment out: calendar.monthStructure = response;
-                // and refresh the page.
-                calendar.monthStructure = response;
-                //calendar.monthStructure = externalCalendar;
+        if(isPast == true){// use the data stored in the externalCalendar.js file.
+            setTimeout(function(){
+                calendar.monthStructure = externalCalendar;
+                document.querySelector("#calControlButton").style.display = "none";
                 buildCalendar();
                 console.log("calendar loaded...");
-            } else{
-                alert("Error, there is no calendar file loaded... "+
-                    "You must create the file: 'js/exportedCalendar.json' and populate it with the calendar structure.");
+            },500);
+            
+        } else {
+            superUtil.grabJSON("/api/getCal", function(status, response){
+                if(status == 200){
+                    // To reset the month, comment out: calendar.monthStructure = response;
+                    // and refresh the page.
+                    calendar.monthStructure = response;
+                    console.log("calendar loaded...");
+                    buildCalendar();
+                    console.log("calendar loaded...");
+                } else {
+                    alert("Error, there is no calendar file loaded... "+
+                        "You must create the file: 'js/exportedCalendar.json' and populate it with the calendar structure.");
+                }
+            
+            });
+        }
+    }
+
+    this.syncCal = function(){
+        syncJSONwithExternalCalendar();
+    }
+
+    this.toggleSettingsControls = function(){
+        var calendarControls = document.querySelector("#calendarControls");
+        var calControlButton = document.querySelector("#calControlButton span");
+        //
+        if(isControlsShown == false){
+            calendarControls.style.display = "block";
+            calControlButton.innerHTML = "Hide Settings";
+            isControlsShown = true;
+        } else if(isControlsShown == true){
+            calendarControls.style.display = "none";
+            calControlButton.innerHTML = "Show Settings";
+            isControlsShown = false;
+        }
+    }
+
+    function syncJSONwithExternalCalendar(){
+        // Grab the JSON structure from the input field
+        // Then, save it to the externalCalendar variable to be kept for later.
+        var calendarOutput = document.querySelector("#calendarOutput");
+        var preparedJSON = JSON.parse(calendarOutput.value);
+        externalCalendar = preparedJSON;
+        //
+        superUtil.sendJSON(externalCalendar, "/api/calBackup", function(status, response){
+            // Rewrite stored calendar value
+            if(status == 200){
+                alert(response.message);
+            } else {
+                alert("There was a probleming syncing your calendar.")
             }
-           
-        });
+        }, "POST");
     }
 
     function generateMonth(){
@@ -331,16 +378,19 @@ function Calendar(){
         var calendarOutput = document.querySelector("#calendarOutput");
         var calendarWrapper = document.querySelector(".calendarWrapper ul");
         // Post to backend to update JSON file
-        superUtil.sendJSON(calendar.monthStructure, "/api/calSync", function(status, response){
-            // Rewrite stored calendar value
-            if(status == 200 && !response){
-                calendarOutput.value = JSON.stringify(response);
-            } else {
-                // Pass: null in the value of externalCalendar.json to rebuild the calendar
-                calendarOutput.value = JSON.stringify(calendar.monthStructure);
-            }
-        }, "POST");
-
+        // dont do it if you are loading old calendars
+        if(isPast == false){
+            superUtil.sendJSON(calendar.monthStructure, "/api/calSync", function(status, response){
+                // Rewrite stored calendar value
+                if(status == 200 && !response){
+                    calendarOutput.value = JSON.stringify(response);
+                } else {
+                    // Pass: null in the value of externalCalendar.json to rebuild the calendar
+                    calendarOutput.value = JSON.stringify(calendar.monthStructure);
+                }
+            }, "POST");
+        }
+        
         // Append html to build each day block
         calendarWrapper.innerHTML = "";
         for(var i = 0; i<= calendar.numDaysInMonth-1; i++){
@@ -403,12 +453,18 @@ function Calendar(){
                 }
 
                 // style title and numbers if on yellow theme cause its lighter and harder to see on white
-                if(calendar.chosenTheme == calendar.themes[2] && c != (day-1) && isPast != true){
+                if(calendar.chosenTheme == calendar.themes[2] && c != (day-1)){
                     calendarDays[c].querySelector(".dayTitle").style.color = "black";
                     calendarDays[c].querySelector(".dayTitle div").style.color = "black";
                     document.querySelector(".logo").style.color = "black";
                 } else {
                     document.querySelector(".logo").style.color = "white";
+                }
+
+                //if you are isPast looking at previous content & you have selected black text
+                if(calendar.chosenTheme == calendar.themes[2] && c == (day-1) && isPast == true){
+                    calendarDays[c].querySelector(".dayTitle").style.color = "black";
+                    calendarDays[c].querySelector(".dayTitle div").style.color = "black";
                 }
             }
         },50);
@@ -457,7 +513,7 @@ function Calendar(){
             }
             
             calendar.monthStructure[dayIndex].events[eventIndex].notes = eventNotes.value;
-            alert("Editted Event Successfully...");
+            alert("Edited Event Successfully...");
             calendar.closeModal();
             buildCalendar();
             calendarListObjects[dayIndex].click();
@@ -495,7 +551,7 @@ function Calendar(){
                 calendar.monthStructure[dayIndex].tasks[taskIndex].time = (taskTime.value+" "+timeCycle.value);
             }
             calendar.monthStructure[dayIndex].tasks[taskIndex].notes = taskNotes.value;
-            alert("Editted Task Successfully...");
+            alert("Edited Task Successfully...");
             calendar.closeModal();
             buildCalendar();
             calendarListObjects[dayIndex].click();
