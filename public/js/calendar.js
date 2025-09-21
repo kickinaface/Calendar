@@ -466,6 +466,10 @@ function Calendar(){
                     calendarDays[c].querySelector(".dayTitle").style.color = "black";
                     calendarDays[c].querySelector(".dayTitle div").style.color = "black";
                 }
+                // style seasons portion
+                if(!isPast){
+                    updateSeasonStyles(calendar.chosenTheme);
+                }
             }
         },50);
     }
@@ -680,6 +684,7 @@ function Calendar(){
     }
 }
 function applyCustomTheme(hexValue, isBlackText){
+    
     // override themes, create custom theme.
     Calendar_theme = hexValue;
     calendar.chosenTheme= Calendar_theme;
@@ -687,8 +692,28 @@ function applyCustomTheme(hexValue, isBlackText){
     if(isBlackText == true){
         calendar.themes[2] = Calendar_theme;
     }
+    // set input field to hex value
     setTimeout(function(){
         document.querySelector("#customHexValue").value = hexValue;
-    },100);
+    },1000);
+
+    
+}
+function updateSeasonStyles(hex){
+    var seasonList = document.querySelectorAll("#seasonList li");
+    // style custom seasons (NTKJIDA)
+    // style background border
+    for(i=0;i<=seasonList.length-1;i++){
+        seasonList[i].style.borderColor = hex;
+    }
+    // style custom seaon orbs
+    document.querySelector("#seasonList li:nth-child(2)")
+        .style.backgroundImage = "linear-gradient(white, "+hex+")";
+    document.querySelector("#seasonList li:nth-child(3)")
+        .style.backgroundColor = hex;
+    document.querySelector("#seasonList li:nth-child(4)")
+        .style.backgroundColor = hex;
+    document.querySelector("#seasonList li:nth-child(5)")
+        .style.backgroundImage = "linear-gradient("+hex+", white)";
 }
 var calendar = new Calendar();
