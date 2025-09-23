@@ -466,6 +466,20 @@ function Calendar(){
                     calendarDays[c].querySelector(".dayTitle").style.color = "black";
                     calendarDays[c].querySelector(".dayTitle div").style.color = "black";
                 }
+                //mouseover for past months
+                var prevMonths = document.querySelectorAll(".previousMonthsWrapper ul li");
+                var defaultFontColor = "#424242";
+                for(var i =0; i<=prevMonths.length-1; i++){
+                    prevMonths[i].addEventListener("mouseover", function(e){
+                        e.target.style.color = calendar.chosenTheme;
+                    });
+                    prevMonths[i].addEventListener("mouseout", function(e){
+                        e.target.style.color = defaultFontColor
+                    });
+                    prevMonths[i].addEventListener("click", function(e){
+                        e.target.style.color = defaultFontColor
+                    });
+                }
                 // style seasons portion
                 if(!isPast){
                     updateSeasonStyles(calendar.chosenTheme);
