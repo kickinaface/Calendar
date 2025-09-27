@@ -68,16 +68,28 @@ function Calendar(){
         // Then, save it to the externalCalendar variable to be kept for later.
         var calendarOutput = document.querySelector("#calendarOutput");
         var preparedJSON = JSON.parse(calendarOutput.value);
+        var isSync = false;
+        var isSyncMessage = null;
         externalCalendar = preparedJSON;
         //
         superUtil.sendJSON(externalCalendar, "/api/calBackup", function(status, response){
             // Rewrite stored calendar value
             if(status == 200){
-                alert(response.message);
+                isSync = true;
+                isSyncMessage = response.message;
+            } else {
+                isSync = false;
+            }
+        }, "POST");
+
+        // Hold a moment before server activity or else it will alert twice.
+        setTimeout(function(){
+            if(isSync == true){
+                alert(isSyncMessage);
             } else {
                 alert("There was a probleming syncing your calendar.")
             }
-        }, "POST");
+        },500);
     }
 
     function generateMonth(){
