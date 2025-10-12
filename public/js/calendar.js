@@ -32,7 +32,6 @@ function Calendar(){
                     // To reset the month, comment out: calendar.monthStructure = response;
                     // and refresh the page.
                     calendar.monthStructure = response;
-                    console.log("calendar loaded...");
                     buildCalendar();
                     console.log("calendar loaded...");
                 } else {
@@ -238,6 +237,11 @@ function Calendar(){
             if(calendar.chosenTheme == calendar.themes[2]){
                 dialogButtons[d].style.color = "black";
             }
+
+            //disable buttons if isPast
+            if(isPast == true)
+                dialogButtons[d].style.opacity = 0;
+                buttonWrapper.style.display = "none";
         }
     }
 
