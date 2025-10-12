@@ -385,6 +385,13 @@ function Calendar(){
             buildCalendar();
         }
     }
+    this.updateThemeFromLink = function updateThemeFromLink(hex, isBlack){
+        applyCustomTheme(hex, isBlack);
+        calendar.closeModal();
+        setTimeout(function(){
+            buildCalendar();
+        },500);
+    }
 
     function buildCalendar(){
         var calendarOutput = document.querySelector("#calendarOutput");
