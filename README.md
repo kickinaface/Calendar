@@ -13,11 +13,11 @@ NodeJS & JavaScript-powered calendar.
 ## Tech
 - [JavaScript] - HTML enhanced for web apps!
 - [node.js] - evented I/O for the backend
-- [Express] - fast node.js network app framework [@tjholowaychuk]
+- [Express] - fast node.js network app framework
 
 ## Installation
 
-Calendar requires [Node.js](https://nodejs.org/) v10+ to run.
+Calendar requires [node.js](https://nodejs.org/) v10+ to run.
 Install the dependencies and devDependencies and start the server.
 
 ```sh
@@ -78,49 +78,12 @@ Insert the color hex value as a string and then false for white, true for black.
 ###### externalCalendar
 This is the JSON output of the current calendar being viewed. You can populate the values here when you have followed the steps to generating it.
 
-## Building & Generating the Calendar JSON
-###### public/js/exportedCalendar.json
-Be sure that the contents within this file are set to either: `null` or `""` and empty string. This is to remove old data that Node might have created from previous routes. So remove the contents and start fresh.
 
-###### public/js/calendar.js
-Comment out any lines that set the value: `calendar.monthStructure`
-```code
-this.init = function(){
-    // Take content from externalCalendar.js and build out the month
-    generateMonth();
-    // Get the held month data from backend and populate the calendar.
-    superUtil.grabJSON("/api/getCal", function(status, response){
-        if(status == 200){
-            // To reset the month, comment out: calendar.monthStructure = response;
-            // and refresh the page.
-            //calendar.monthStructure = response;
-            //calendar.monthStructure = externalCalendar;
-            buildCalendar();
-            console.log("calendar loaded...");
-        } else {
-```
-
-Refresh the page and notice that the month builds and the JSON structure is outputted in the input field. Grab that structure and place it into the value of: ` var externalCalendar;`
 ```code
 var externalCalendar =
 [{"day":1,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":2,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":3,"events":[],"tasks":[],"weekDay":"Thursday"},{"day":4,"events":[],"tasks":[],"weekDay":"Friday"},{"day":5,"events":[],"tasks":[],"weekDay":"Saturday"},{"day":6,"events":[],"tasks":[],"weekDay":"Sunday"},{"day":7,"events":[],"tasks":[],"weekDay":"Monday"},{"day":8,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":9,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":10,"events":[],"tasks":[],"weekDay":"Thursday"},{"day":11,"events":[],"tasks":[],"weekDay":"Friday"},{"day":12,"events":[],"tasks":[],"weekDay":"Saturday"},{"day":13,"events":[],"tasks":[],"weekDay":"Sunday"},{"day":14,"events":[],"tasks":[],"weekDay":"Monday"},{"day":15,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":16,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":17,"events":[],"tasks":[],"weekDay":"Thursday"},{"day":18,"events":[],"tasks":[],"weekDay":"Friday"},{"day":19,"events":[],"tasks":[],"weekDay":"Saturday"},{"day":20,"events":[],"tasks":[],"weekDay":"Sunday"},{"day":21,"events":[],"tasks":[],"weekDay":"Monday"},{"day":22,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":23,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":24,"events":[],"tasks":[],"weekDay":"Thursday"},{"day":25,"events":[],"tasks":[],"weekDay":"Friday"},{"day":26,"events":[],"tasks":[],"weekDay":"Saturday"},{"day":27,"events":[],"tasks":[],"weekDay":"Sunday"},{"day":28,"events":[],"tasks":[],"weekDay":"Monday"},{"day":29,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":30,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":31,"events":[],"tasks":[],"weekDay":"Thursday"}];
 ```
-Now that you have the JSON structure, uncomment the lines where the `calendar.monthStructure` is set to the `response` of the new data coming from the user's requests. This will ensure that the calendar is always updating when the program is rebuilding.
-```code
-this.init = function(){
-    // Take content from externalCalendar.js and build out the month
-    generateMonth();
-    // Get the held month data from backend and populate the calendar.
-    superUtil.grabJSON("/api/getCal", function(status, response){
-        if(status == 200){
-            // To reset the month, comment out: calendar.monthStructure = response;
-            // and refresh the page.
-            calendar.monthStructure = response;
-            //calendar.monthStructure = externalCalendar;
-            buildCalendar();
-            console.log("calendar loaded...");
-        } else {
-```
+
 
    [node.js]: <http://nodejs.org>
    [express]: <http://expressjs.com>
