@@ -239,9 +239,13 @@ function Calendar(){
             }
 
             //disable buttons if isPast
-            if(isPast == true)
+            if(isPast == true){
                 dialogButtons[d].style.opacity = 0;
                 buttonWrapper.style.display = "none";
+            }else{ // enable buttons if not past
+                dialogButtons[d].style.opacity = 1;
+                buttonWrapper.style.display = "block";
+            }
         }
     }
 
