@@ -86,20 +86,5 @@
         border:1px solid #424242;
         font-size: 14pt;
         font-weight: bold;
+        cursor: pointer;
     }
-
-/* Hardcode season logic here for now */
-#seasonList li:nth-child(2){
-    background-image: linear-gradient(white, #424242);
-}
-#seasonList li:nth-child(3){
-    /* background-image: linear-gradient(white, #c51622); */
-    background-color: #424242;
-}
-#seasonList li:nth-child(4){
-    /* background-image: linear-gradient(white, #c51622); */
-    background-color: #424242;
-}
-#seasonList li:nth-child(5){
-    background-image: linear-gradient(#424242, white);
-}

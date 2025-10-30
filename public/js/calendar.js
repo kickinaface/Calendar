@@ -11,8 +11,9 @@ function Calendar(){
     const year = today.getFullYear();
     this.formattedDate = `${month}/${day}/${year}`;
     var isControlsShown = false;
-    
     var isBlackButtonText = "white";
+    this.customSeasonNames = ["1st Light","2nd Light","1st Half",
+                        "1st Darkness","2nd Darkness","2nd Half"];
     //
     this.init = function(){
         // Take content from externalCalendar.js and build out the month
@@ -88,7 +89,7 @@ function Calendar(){
             } else {
                 alert("There was a probleming syncing your calendar.")
             }
-        },500);
+        },1000);
     }
 
     function generateMonth(){
@@ -725,7 +726,6 @@ function Calendar(){
     }
 }
 function applyCustomTheme(hexValue, isBlackText){
-    
     // override themes, create custom theme.
     Calendar_theme = hexValue;
     calendar.chosenTheme= Calendar_theme;
@@ -738,7 +738,6 @@ function applyCustomTheme(hexValue, isBlackText){
         document.querySelector("#customHexValue").value = hexValue;
     },1000);
 
-    
 }
 function updateSeasonStyles(hex){
     var seasonList = document.querySelectorAll("#seasonList li");
@@ -748,13 +747,40 @@ function updateSeasonStyles(hex){
         seasonList[i].style.borderColor = hex;
     }
     // style custom seaon orbs
-    document.querySelector("#seasonList li:nth-child(2)")
-        .style.backgroundImage = "linear-gradient(white, "+hex+")";
     document.querySelector("#seasonList li:nth-child(3)")
-        .style.backgroundColor = hex;
+        .style.backgroundImage = "linear-gradient(white, "+hex+")";
     document.querySelector("#seasonList li:nth-child(4)")
         .style.backgroundColor = hex;
     document.querySelector("#seasonList li:nth-child(5)")
+        .style.backgroundColor = hex;
+    document.querySelector("#seasonList li:nth-child(6)")
         .style.backgroundImage = "linear-gradient("+hex+", white)";
+        
+    // manually list current season name
+    var seasonName = document.querySelector("#seasonName");
+    seasonName.style.opacity = "1";
+    seasonName.innerHTML = calendar.customSeasonNames[2];// change this when you change seasons...
+}
+function hoverSeasonOrb(element){
+    var seasonName = document.querySelector("#seasonName");
+    seasonName.style.opacity = "1";
+    if(element == 0){
+        seasonName.innerHTML = calendar.customSeasonNames[0];
+    } else if(element == 1){
+        seasonName.innerHTML = calendar.customSeasonNames[1];
+    }else if(element == 2){
+        seasonName.innerHTML = calendar.customSeasonNames[2];
+    }else if(element == 3){
+        seasonName.innerHTML = calendar.customSeasonNames[3];
+    }else if(element == 4){
+        seasonName.innerHTML = calendar.customSeasonNames[4];
+    }else if(element == 5){
+        seasonName.innerHTML = calendar.customSeasonNames[5];
+    }
+}
+function clearOrbHover(){
+    var seasonName = document.querySelector("#seasonName");
+    seasonName.innerHTML = calendar.customSeasonNames[2];// change this when you change seasons...
+    seasonName.style.opacity = "1";
 }
 var calendar = new Calendar();

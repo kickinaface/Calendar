@@ -41,17 +41,18 @@
         <center>
             <br>
             <div class="currentSeason">
-                <h3>Current Season (NTKJIDA):</h3>
+                <h3>Current Season:</h3>
                 <ul id="seasonList">
-                    <li></li>
-                    <li><div>✖</div></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li onmouseover="hoverSeasonOrb(0)" onmouseout="clearOrbHover()"></li>
+                    <li onmouseover="hoverSeasonOrb(1)" onmouseout="clearOrbHover()"><div></div></li>
+                    <li onmouseover="hoverSeasonOrb(2)" onmouseout="clearOrbHover()"><div>✖</div></li>
+                    <li onmouseover="hoverSeasonOrb(3)" onmouseout="clearOrbHover()"></li>
+                    <li onmouseover="hoverSeasonOrb(4)" onmouseout="clearOrbHover()"></li>
+                    <li onmouseover="hoverSeasonOrb(5)" onmouseout="clearOrbHover()"></li>
                 </ul>
             </div>
-            <br><br><br><br><br><br>
+            
+            <br><br><br><br><br><i><span style="opacity: 0;" id="seasonName"></span></i><br><br>
             <div class="previousMonthsWrapper">
                 <h3>Previous Months</h3>
                 <ul>
