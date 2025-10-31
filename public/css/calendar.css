@@ -88,3 +88,14 @@
         font-weight: bold;
         cursor: pointer;
     }
+
+    .repeatCount{
+        text-align: left;
+        width: 60px !important;
+    }
+
+#isEventRepeat, #isTaskRepeat{
+    width: 30px !important;
+    height: 30px !important;
+    margin-right:10px;
+}

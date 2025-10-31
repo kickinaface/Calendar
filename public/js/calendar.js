@@ -12,8 +12,8 @@ function Calendar(){
     this.formattedDate = `${month}/${day}/${year}`;
     var isControlsShown = false;
     var isBlackButtonText = "white";
-    this.customSeasonNames = ["1st Light","2nd Light","1st Half",
-                        "1st Darkness","2nd Darkness","2nd Half"];
+    this.customSeasonNames = ["1st Light (May 17 - July 18)","2nd Light (July 6 - Sept 6)","1st Half (Sept 7 - Nov 8)",
+                        "1st Darkness (Nov 9 - Jan 10)","2nd Darkness (Jan 11 - Mar 14)","2nd Half (Mar 15 - May 16)"];
     //
     this.init = function(){
         // Take content from externalCalendar.js and build out the month
@@ -39,7 +39,6 @@ function Calendar(){
                     alert("Error, there is no calendar file loaded... "+
                         "You must create the file: 'js/exportedCalendar.json' and populate it with the calendar structure.");
                 }
-            
             });
         }
     }
@@ -315,7 +314,8 @@ function Calendar(){
         inputWrapper.innerHTML = "<center><br><b>Event Name: </b><br><input type='text' class='eventName' placeholder='Event Name'>" +
         "<br><br><b>Event Time: </b><br><input type='text' class='eventTime' placeholder='Event Time (3:00)'> <select id='timeCycle'><option value='am'>AM</option><option value='pm'>PM</option></select>"+
         "<br><br><b>Event Notes:</b><br><textarea class='eventNotes' placeholder='Event Notes'></textarea>"+
-        "<p><button onclick='calendar.executeAddEvent();' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+";'>Add Event</button></p>"+
+        "<br><br><b>Repeat Event:</b><br> <br><input type='number' id='eventRepeatCount' class='repeatCount' name='repeatCount' min='2' max='31' value='2'> (Days)<br> <input id='isEventRepeat' type='checkbox' name='isEventRepeat' value='false' /><label for='isEventRepeat'>(Check to Repeat Event)</label>"+
+        "<br><BR><BR><p><button onclick='calendar.executeAddEvent();' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+";'>Add Event</button></p>"+
         "</center>";
         inputWrapper.style.display = "block";
     }
@@ -326,6 +326,7 @@ function Calendar(){
         var eventTime = document.querySelector(".eventTime");
         var eventNotes = document.querySelector(".eventNotes");
         var modalMessages = document.querySelector(".modalMessages");
+        var isRepeatEvent = document.querySelector("#isEventRepeat").checked;
 
         if(eventName.value == "" || eventTime.value == "" || eventNotes.value ==""){
             // Show error.
@@ -334,15 +335,33 @@ function Calendar(){
         } else{
             modalMessages.innerHTML = "";
             modalMessages.style.display = "none";
-            // Add the event.
-             calendar.addEvent(eventName.value, 
-                sanitize((document.querySelector("#dayIndex").value)),
-                (eventTime.value+" "+document.querySelector("#timeCycle").value), 
-                eventNotes.value
-            );
-            alert('Event added...');
-            calendar.closeModal();
-            buildCalendar();
+            if(isRepeatEvent == false){
+                // Add the event.
+                calendar.addEvent(eventName.value, 
+                    sanitize((document.querySelector("#dayIndex").value)),
+                    (eventTime.value+" "+document.querySelector("#timeCycle").value), 
+                    eventNotes.value
+                );
+                alert('Event added...');
+                calendar.closeModal();
+                buildCalendar();
+            } else if(isRepeatEvent == true){
+                // Repeat the event
+                var dayIndex = parseInt(document.querySelector("#dayIndex").value);
+                var repeatCount = document.querySelector("#eventRepeatCount").value;
+                // loop event to create multiple occurences...
+                for(var i = 0; i<=(repeatCount-1); i++){
+                    calendar.addEvent(eventName.value, 
+                        (dayIndex + i), 
+                        (eventTime.value+" "+document.querySelector("#timeCycle").value), 
+                        eventNotes.value
+                    );
+                }
+                alert('Added Repeating Events...');
+                calendar.closeModal();
+                buildCalendar();
+            }
+            
         }
     }
 
@@ -363,8 +382,10 @@ function Calendar(){
         // Buld up dialog for adding events
         inputWrapper.innerHTML = "<center><br><b>Task Name:</b><br><input type='text' class='taskName' placeholder='Task Name'>" +
         "<br><br><b>Task Time:</b><br><input type='text' class='taskTime' placeholder='Task Time (3:00)'> <select id='timeCycle'><option value='am'>AM</option><option value='pm'>PM</option></select>"+
-        "<br><br><b>Task Notes</b><br><textarea class='taskNotes' placeholder='Task Notes'></textarea>"+
-        "<p><button onclick='calendar.executeTaskEvent();' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+";'>Add Task</button></p>"+
+        "<br><br><b>Task Notes:</b><br><textarea class='taskNotes' placeholder='Task Notes'></textarea>"+
+
+        "<br><br><b>Repeat Task:</b><br> <br><input type='number' id='taskRepeatCount' class='repeatCount' name='repeatCount' min='2' max='31' value='2'> (Days)<br> <input id='isTaskRepeat' type='checkbox' name='isTaskRepeat' value='false' /><label for='isTaskRepeat'>(Check to Repeat Task)</label>"+
+        "<br><BR><BR><p><button onclick='calendar.executeTaskEvent();' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+";'>Add Task</button></p>"+
         "</center>";
         inputWrapper.style.display = "block";
     }
@@ -374,6 +395,7 @@ function Calendar(){
         var taskTime = document.querySelector(".taskTime");
         var taskNotes = document.querySelector(".taskNotes");
         var modalMessages = document.querySelector(".modalMessages");
+        var isTaskRepeat = document.querySelector("#isTaskRepeat").checked;
 
         if(taskName.value == "" || taskTime.value == "" || taskNotes.value ==""){
             // Show error.
@@ -382,16 +404,33 @@ function Calendar(){
         } else{
             modalMessages.innerHTML = "";
             modalMessages.style.display = "none";
-            // Add the task.
-            calendar.addTask(taskName.value, 
-                sanitize((document.querySelector("#dayIndex").value)),
-                (taskTime.value+" "+document.querySelector("#timeCycle").value), 
-                taskNotes.value
-            );
-            alert('Task added...');
-            //console.log("Days: ", this.monthStructure);
-            calendar.closeModal();
-            buildCalendar();
+            if(isTaskRepeat == false){
+                // Add the task.
+                calendar.addTask(taskName.value, 
+                    sanitize((document.querySelector("#dayIndex").value)),
+                    (taskTime.value+" "+document.querySelector("#timeCycle").value), 
+                    taskNotes.value
+                );
+                alert('Task added...');
+                calendar.closeModal();
+                buildCalendar();
+            } else if(isTaskRepeat == true){
+                // Repeat the task
+                var dayIndex = parseInt(document.querySelector("#dayIndex").value);
+                var repeatCount = document.querySelector("#taskRepeatCount").value;
+                // loop event to create multiple occurences...
+                for(var i = 0; i<=(repeatCount-1); i++){
+                    calendar.addTask(taskName.value, 
+                        (dayIndex + i), 
+                        (taskTime.value+" "+document.querySelector("#timeCycle").value), 
+                        taskNotes.value
+                    );
+                }
+                alert('Added Repeated Tasks...');
+                calendar.closeModal();
+                buildCalendar();
+            }
+            
         }
     }
     this.updateThemeFromLink = function updateThemeFromLink(hex, isBlack){
