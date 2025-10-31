@@ -16,8 +16,6 @@ function Calendar(){
                         "1st Darkness (Nov 9 - Jan 10)","2nd Darkness (Jan 11 - Mar 14)","2nd Half (Mar 15 - May 16)"];
     //
     this.init = function(){
-        // Take content from externalCalendar.js and build out the month
-        generateMonth();
         // Get the held month data from backend and populate the calendar.
         if(isPast == true){// use the data stored in the externalCalendar.js file.
             setTimeout(function(){
@@ -90,23 +88,31 @@ function Calendar(){
             }
         },1000);
     }
-
-    function generateMonth(){
-        var weekIndex = calendar.calendarWeek.indexOf(Calendar_startWeekDay);
-        //
-        for(var i = 0; i<= calendar.numDaysInMonth-1; i++){
-            if(weekIndex > calendar.calendarWeek.length-1){
-                weekIndex = 0;
+    this.generateMonth = function generateMonth(){
+        setTimeout(() => {
+            var newBuiltStructure = [];
+            var weekIndex = calendar.calendarWeek.indexOf(Calendar_startWeekDay);
+            var calendarControls = document.querySelector("#calendarControls");
+            var calendarOutput = document.querySelector("#calendarOutput");
+            //
+            for(var i = 0; i<= calendar.numDaysInMonth-1; i++){
+                if(weekIndex > calendar.calendarWeek.length-1){
+                    weekIndex = 0;
+                }
+                var dayStructure = {
+                    day: (i+1),
+                    events:[],
+                    tasks:[],
+                    weekDay: calendar.calendarWeek[weekIndex]
+                }
+                newBuiltStructure.push(dayStructure);
+                weekIndex++;
             }
-            var dayStructure = {
-                day: (i+1),
-                events:[],
-                tasks:[],
-                weekDay: calendar.calendarWeek[weekIndex]
-            }
-            calendar.monthStructure.push(dayStructure);
-            weekIndex++;
-        }        
+            // overide input text.
+            calendarControls.style.display = "block";
+            calendarOutput.value = JSON.stringify(newBuiltStructure);
+            calendar.importJSON();
+        }, 1000);
     }
 
     this.addEvent = function addEvent(name, day, time, notes){
