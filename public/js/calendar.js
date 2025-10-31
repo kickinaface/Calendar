@@ -524,7 +524,7 @@ function Calendar(){
                     calendarDays[c].querySelector(".dayTitle").style.color = "black";
                     calendarDays[c].querySelector(".dayTitle div").style.color = "black";
                     document.querySelector(".logo").style.color = "black";
-                } else {
+                } else if(calendar.chosenTheme != calendar.themes[2]){
                     document.querySelector(".logo").style.color = "white";
                 }
 
@@ -760,6 +760,10 @@ function Calendar(){
         
         if(isBlackButtonText == "black"){
             calendar.themes[2] = calendar.chosenTheme;
+            setTimeout(function(){
+                // fix overide black logo text kinda hacky...
+                document.querySelector(".logo").style.color ="black";
+            },1000);
         }
         buildCalendar();
     }
@@ -775,6 +779,10 @@ function applyCustomTheme(hexValue, isBlackText){
     // set input field to hex value
     setTimeout(function(){
         document.querySelector("#customHexValue").value = hexValue;
+        // fix overide black logo text
+        if(isBlackText == true){
+            document.querySelector(".logo").style.color ="black";
+        }
     },1000);
 
 }
