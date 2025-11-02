@@ -12,8 +12,8 @@ function Calendar(){
     this.formattedDate = `${month}/${day}/${year}`;
     var isControlsShown = false;
     var isBlackButtonText = "white";
-    this.customSeasonNames = ["1st Light (May 17 - July 18)","2nd Light (July 6 - Sept 6)","1st Half (Sept 7 - Nov 8)",
-                        "1st Darkness (Nov 9 - Jan 10)","2nd Darkness (Jan 11 - Mar 14)","2nd Half (Mar 15 - May 16)"];
+    this.customSeasonNames = ["1st Light (old: N/A 2025, new: May 17, 2026 - July 18, 2026)","2nd Light (old: July 6, 2025 - Sept 6, 2025 new: July 5, 2026 - N/A)","1st Half (Sept 7, 2025 - Nov 8, 2025)",
+                        "1st Darkness (Nov 9, 2025 - Jan 10, 2025)","2nd Darkness (Jan 11, 2025 - Mar 14, 2025)","2nd Half (Mar 15, 2025 - May 16, 2025)"];
     //
     this.init = function(){
         // Get the held month data from backend and populate the calendar.
