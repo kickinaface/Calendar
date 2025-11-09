@@ -40,19 +40,43 @@
     <div class="calendarOutputWrapper" style="margin:15px;">
         <center>
             <br>
+            <div class="progressTrack">
+                <h3>Progress Tracker:</h3>
+                <ul style="padding-top:10px;">
+                    <li>
+                        <label for="completedTasksPercent">Completed Tasks: </label>
+                        <progress id="completedTasksPercent" value="0" max="100"></progress>
+                        <span id="completedTasksLabel"></span>
+                    </li>
+                    <li> 
+                        <label for="completedEventsPercent">Completed Events: </label>
+                        <progress id="completedEventsPercent" value="0" max="100"></progress>
+                        <span id="completedEventsLabel"></span>
+                    </li>
+                    <li>
+                        <button class="trackerBtn" onclick="loadCompletedTasks();">Completed Tasks</button>
+                        <button class="trackerBtn" onclick="loadInCompleteTasks();">Incomplete Tasks</button>
+                        <button class="trackerBtn" onclick="loadCompletedEvents();">Completed Events</button>
+                        <button class="trackerBtn" onclick="loadInCompleteEvents();">Incomplete Events</button>
+                    </li>
+                </ul>
+                <ul id="progressTableOutput"></ul>
+                <br>
+            </div>
+            <br>
             <div class="currentSeason">
                 <h3>Current Season:</h3>
                 <ul id="seasonList">
                     <li onmouseover="hoverSeasonOrb(0)" onmouseout="clearOrbHover()"></li>
-                    <li onmouseover="hoverSeasonOrb(1)" onmouseout="clearOrbHover()"><div></div></li>
-                    <li onmouseover="hoverSeasonOrb(2)" onmouseout="clearOrbHover()"><div>✖</div></li>
-                    <li onmouseover="hoverSeasonOrb(3)" onmouseout="clearOrbHover()"></li>
+                    <li onmouseover="hoverSeasonOrb(1)" onmouseout="clearOrbHover()"></li>
+                    <li onmouseover="hoverSeasonOrb(2)" onmouseout="clearOrbHover()"></li>
+                    <li onmouseover="hoverSeasonOrb(3)" onmouseout="clearOrbHover()"><div>✖</div></li>
                     <li onmouseover="hoverSeasonOrb(4)" onmouseout="clearOrbHover()"></li>
                     <li onmouseover="hoverSeasonOrb(5)" onmouseout="clearOrbHover()"></li>
                 </ul>
             </div>
             
-            <br><br><br><br><br><i><span style="opacity: 0;" id="seasonName"></span></i><br><br>
+            <br><br><br><br><br><i><span style="opacity: 0;" id="seasonName"></span></i><br><br><br>
             <div class="previousMonthsWrapper">
                 <h3>Previous Months</h3>
                 <ul>
@@ -65,7 +89,7 @@
                     <li><a href="/Years/2025/October/">October</a></li>
                 </ul>
             </div>
-            <br>
+            <br><br><br>
             <button onclick="calendar.toggleSettingsControls();" id="calControlButton">⚙️ <b><span>Show Settings</span></b> 🔧🛠️</button>
         </center>
         <div id="calendarControls">

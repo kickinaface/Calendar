@@ -14,6 +14,10 @@ function Calendar(){
     var isBlackButtonText = "white";
     this.customSeasonNames = ["1st Light (old: N/A 2025, new: May 17, 2026 - July 18, 2026)","2nd Light (old: July 6, 2025 - Sept 6, 2025 new: July 5, 2026 - N/A)","1st Half (Sept 7, 2025 - Nov 8, 2025)",
                         "1st Darkness (Nov 9, 2025 - Jan 10, 2025)","2nd Darkness (Jan 11, 2025 - Mar 14, 2025)","2nd Half (Mar 15, 2025 - May 16, 2025)"];
+    this.completedEvents = [];
+    this.inCompleteEvents = [];
+    this.completedTasks = [];
+    this.inCompleteTasks = [];
     //
     this.init = function(){
         // Get the held month data from backend and populate the calendar.
@@ -21,6 +25,7 @@ function Calendar(){
             setTimeout(function(){
                 calendar.monthStructure = externalCalendar;
                 document.querySelector("#calControlButton").style.display = "none";
+                //document.querySelector(".progressTrack").style.display = "none";
                 buildCalendar();
                 console.log("calendar loaded...");
             },500);
@@ -485,10 +490,23 @@ function Calendar(){
                 //populate events
                 for(var i = 0; i<=calendar.monthStructure[c].events.length-1; i++){
                     calendarDays[c].querySelector('.dayObjects').innerHTML += "<div>"+calendar.monthStructure[c].events[i].name.substring(0,25)+"</div>";
+                    // Populate completedEvents array and populate inCompleteEvents array
+                    if(calendar.monthStructure[c].events[i].isComplete == true){
+                        calendar.completedEvents.push(calendar.monthStructure[c].events[i]);
+                    } else if(calendar.monthStructure[c].events[i].isComplete == false){
+                        calendar.inCompleteEvents.push(calendar.monthStructure[c].events[i]);
+                    }
+                    
                 }
                 //populate tasks
                 for(let i = 0; i<=calendar.monthStructure[c].tasks.length-1; i++){
                     calendarDays[c].querySelector('.dayObjects').innerHTML += "<div>"+calendar.monthStructure[c].tasks[i].name.substring(0,25)+"</div>";
+                    // Populate completedTasks array and populate inCompleteTasks array
+                    if(calendar.monthStructure[c].tasks[i].isComplete == true){
+                        calendar.completedTasks.push(calendar.monthStructure[c].tasks[i]);
+                    } else if(calendar.monthStructure[c].tasks[i].isComplete == false){
+                        calendar.inCompleteTasks.push(calendar.monthStructure[c].tasks[i]);
+                    }
                 }
 
                 // Apply theme
@@ -558,7 +576,18 @@ function Calendar(){
                     updateSeasonStyles(calendar.chosenTheme);
                 }
             }
-        },50);
+            // Append task tracker data
+            document.querySelector("#completedTasksPercent").value = (((calendar.completedTasks.length/(calendar.inCompleteTasks.length + calendar.completedTasks.length))*100).toFixed(0));
+            document.querySelector("#completedTasksLabel").innerHTML = (((calendar.completedTasks.length/(calendar.inCompleteTasks.length + calendar.completedTasks.length))*100).toFixed(0) + "%");
+            document.querySelector("#completedEventsPercent").value = (((calendar.completedEvents.length/(calendar.inCompleteEvents.length + calendar.completedEvents.length))*100).toFixed(0));
+            document.querySelector("#completedEventsLabel").innerHTML = (((calendar.completedEvents.length/(calendar.inCompleteEvents.length + calendar.completedEvents.length))*100).toFixed(0) + "%");
+            // Add values to buttons
+            document.querySelectorAll(".trackerBtn")[0].innerHTML = "Completed Tasks ("+(calendar.completedTasks.length)+")";
+            document.querySelectorAll(".trackerBtn")[1].innerHTML = "Incomplete Tasks ("+(calendar.inCompleteTasks.length)+")";
+            document.querySelectorAll(".trackerBtn")[2].innerHTML = "Completed Events ("+(calendar.completedEvents.length)+")";
+            document.querySelectorAll(".trackerBtn")[3].innerHTML = "Incomplete Events ("+(calendar.inCompleteEvents.length)+")";
+            
+        },60);
     }
 
     this.importJSON = function importJSON(){
@@ -771,7 +800,20 @@ function Calendar(){
                 document.querySelector(".logo").style.color ="black";
             },1000);
         }
-        buildCalendar();
+        
+        setTimeout(function(){
+            // Clear out old values before reloading theme.
+            calendar.completedEvents.splice(0, calendar.completedEvents.length);
+            calendar.inCompleteEvents.splice(0, calendar.inCompleteEvents.length);
+            calendar.completedTasks.splice(0, calendar.completedTasks.length);
+            calendar.inCompleteTasks.splice(0, calendar.inCompleteTasks.length);
+            //
+            buildCalendar();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        },500);
     }
 }
 function applyCustomTheme(hexValue, isBlackText){
@@ -812,7 +854,7 @@ function updateSeasonStyles(hex){
     // manually list current season name
     var seasonName = document.querySelector("#seasonName");
     seasonName.style.opacity = "1";
-    seasonName.innerHTML = calendar.customSeasonNames[2];// change this when you change seasons...
+    seasonName.innerHTML = calendar.customSeasonNames[3];// change this when you change seasons...
 }
 function hoverSeasonOrb(element){
     var seasonName = document.querySelector("#seasonName");
@@ -833,7 +875,52 @@ function hoverSeasonOrb(element){
 }
 function clearOrbHover(){
     var seasonName = document.querySelector("#seasonName");
-    seasonName.innerHTML = calendar.customSeasonNames[2];// change this when you change seasons...
+    seasonName.innerHTML = calendar.customSeasonNames[3];// change this when you change seasons...
     seasonName.style.opacity = "1";
+}
+
+function loadCompletedTasks(){
+    var progressTableOutput = document.querySelector("#progressTableOutput");
+    progressTableOutput.innerHTML = "";
+    progressTableOutput.innerHTML +="<li><b>Completed Tasks:</b></li>"
+    for(var i = 0; i<= calendar.completedTasks.length-1; i++){
+        progressTableOutput.innerHTML += "<li><b>Task Name:</b> "+calendar.completedTasks[i].name+" <b>Day:</b> "+calendar.completedTasks[i].day+" <b>Time:</b> "+calendar.completedTasks[i].time+"</li>";
+    }
+    progressTableOutput.innerHTML +="<li><button onclick='clearProgressWrapper();'>Clear</button></li>";
+}
+
+function loadInCompleteTasks(){
+    var progressTableOutput = document.querySelector("#progressTableOutput");
+    progressTableOutput.innerHTML = "";
+    progressTableOutput.innerHTML +="<li><b>Incomplete Tasks:</b></li>"
+    for(var i = 0; i<= calendar.inCompleteTasks.length-1; i++){
+        progressTableOutput.innerHTML += "<li><b>Task Name:</b> "+calendar.inCompleteTasks[i].name+" <b>Day:</b> "+calendar.inCompleteTasks[i].day+" <b>Time:</b> "+calendar.inCompleteTasks[i].time+"</li>";
+    }
+    progressTableOutput.innerHTML +="<li><button onclick='clearProgressWrapper();'>Clear</button></li>";
+}
+
+function loadCompletedEvents(){
+    var progressTableOutput = document.querySelector("#progressTableOutput");
+    progressTableOutput.innerHTML = "";
+    progressTableOutput.innerHTML +="<li><b>Completed Events:</b></li>"
+    for(var i = 0; i<= calendar.completedEvents.length-1; i++){
+        progressTableOutput.innerHTML += "<li><b>Task Name:</b> "+calendar.completedEvents[i].name+" <b>Day:</b> "+calendar.completedEvents[i].day+" <b>Time:</b> "+calendar.completedEvents[i].time+"</li>";
+    }
+    progressTableOutput.innerHTML +="<li><button onclick='clearProgressWrapper();'>Clear</button></li>";
+}
+
+function loadInCompleteEvents(){
+    var progressTableOutput = document.querySelector("#progressTableOutput");
+    progressTableOutput.innerHTML = "";
+    progressTableOutput.innerHTML +="<li><b>Incomplete Events:</b></li>"
+    for(var i = 0; i<= calendar.inCompleteEvents.length-1; i++){
+        progressTableOutput.innerHTML += "<li><b>Task Name:</b> "+calendar.inCompleteEvents[i].name+" <b>Day:</b> "+calendar.inCompleteEvents[i].day+" <b>Time:</b> "+calendar.inCompleteEvents[i].time+"</li>";
+    }
+    progressTableOutput.innerHTML +="<li><button onclick='clearProgressWrapper();'>Clear</button></li>";
+}
+
+function clearProgressWrapper(){
+    var progressTableOutput = document.querySelector("#progressTableOutput");
+    progressTableOutput.innerHTML = "";
 }
 var calendar = new Calendar();

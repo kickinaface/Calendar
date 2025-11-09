@@ -99,3 +99,13 @@
     height: 30px !important;
     margin-right:10px;
 }
+
+.progressTrack li{
+    list-style: none;
+    cursor: pointer;
+}
+
+#progressTableOutput li{
+    padding: 5px;
+    background-color: #efefef;
+}
