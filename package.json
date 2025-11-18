@@ -1,6 +1,6 @@
 {
   "name": "calendar",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "Calendar web application.",
   "main": "main.js",
   "scripts": {

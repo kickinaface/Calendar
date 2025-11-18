@@ -1,5 +1,5 @@
 # Calendar
-## A Manual Front-End Calendar Written in JavaScript.
+## A Front-End Calendar Written in JavaScript.
 
 
 Calendar is a NodeJS web application that is used to create and store calendar data as JSON.
@@ -10,6 +10,7 @@ NodeJS & JavaScript-powered calendar.
 - Customize each month and save the structure in JSON.
 - Change theme and custom color of calendar.
 
+
 ## Tech
 - [JavaScript] - HTML enhanced for web apps!
 - [node.js] - evented I/O for the backend
@@ -17,7 +18,7 @@ NodeJS & JavaScript-powered calendar.
 
 ## Installation
 
-Calendar requires [node.js](https://nodejs.org/) v10+ to run.
+Calendar requires [Node.js](https://nodejs.org/) v10+ to run.
 Install the dependencies and devDependencies and start the server.
 
 ```sh
@@ -29,7 +30,7 @@ npm start
 ## index.html
 In order to build out the calendar month you must create and modify a JS file and then link them into the index.html file in order for program to build properly.
 
-`index.html`
+`index.html` example...
 
 ```code
 <!DOCTYPE html>
@@ -51,18 +52,18 @@ You must include the proper source of your externalCalendar to load it in proper
 ## externalCalendar.js
 ```code
 var isPast = false;
-var Calendar_monthName = "July";
+var Calendar_monthName = "November";
 var Calendar_year = 2025;
-var Calendar_numDaysInMonth = 31;
-var Calendar_startWeekDay = calendar.calendarWeek[2];
-var Calendar_theme = calendar.themes[4]; // 0-red, 1-orange, 2-yellow, 3-green, 4-blue, 5-purple, 6-pink, 7-charcoal;
-// Custom theme function overide;
-//applyCustomTheme("#3E6BBB", false);
-var externalCalendar =
+var Calendar_numDaysInMonth = 30;
+var Calendar_startWeekDay = calendar.calendarWeek[6];
+var Calendar_theme = calendar.themes[7];
+//applyCustomTheme('#EFBF04', false);
+//calendar.generateMonth();
+var externalCalendar = [];
 ```
 ###### isPast
-Keep `isPast` to `false` for the current month observed.
-Set `isPast` to `true` to ensure the proper calendar title is set for past months.
+Default: `false`
+Change to: `true` when past version of view is needed. The program will render the calendar differently when set to: `true`.
 ###### Calendar_monthName
 The current month as a `String`
 ###### Calendar_year
@@ -75,8 +76,12 @@ The day in the week which the month starts. In the example: 2 is Tuesday. `Array
 Pick through held color themes 0-7 (0-red, 1-orange, 2-yellow, 3-green, 4-blue, 5-purple, 6-pink, 7-charcoal) `Array`
 ###### applyCustomTheme(String, Boolean);
 Insert the color hex value as a string and then false for white, true for black. `Function`
+###### calendar.generateMonth();
+Based on the previous values "Calendar_"...
+Generate a blank month. This will erase your current month so only use this when building out a brand new month. Be sure to back up your previous calendar before running this function because it will remove your current calendar. You can grab the JSON output and save it before using this function to have a copy of the previous calendar data. Otherwise, you must refer to the backups if you pressed the sync button before erasing your calendar.
+
 ###### externalCalendar
-This is the JSON output of the current calendar being viewed. You can populate the values here when you have followed the steps to generating it.
+This is an example the JSON output of the current calendar being viewed. You can populate the values here when you have followed the steps to generating it. The calendar will output the values in the input field stored within the settings buttton. You can easily just get the JSON values and import/export the calendar data. When you wish to create an `isPast` version of the calendar month, you must populate the `externalCalendar` array with the hardcoded version of the stored month to keep its values as a past month. When a calendar is in `isPast = true;`, you cannot change the values unless you go and changes the values of the array data itself. Otherwise, it is set as an archive of the previous month. Pulling its values from the array: `externalCalendar`. 
 
 
 ```code

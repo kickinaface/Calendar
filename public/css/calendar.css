@@ -109,3 +109,38 @@
     padding: 5px;
     background-color: #efefef;
 }
+.arrowWrapper{
+    position: relative;
+    font-size: 20pt;
+    font-weight: bold;
+}
+#leftArrow{
+    position: absolute;
+    left: 0;
+    width: 50px;
+    background-color: #ffffff;
+    margin-top:5%;
+    margin-left: -70px;
+    padding-top:100px;
+    padding-bottom:100px;
+    cursor: pointer;
+    opacity: .8;
+}
+    #leftArrow:hover{
+        opacity: 1;
+    }
+#rightArrow{
+    position: absolute;
+    right: 0;
+    width: 50px;
+    background-color: #ffffff;
+    margin-top:5%;
+    margin-right:-70px;
+    padding-top:100px;
+    padding-bottom:100px;
+    cursor: pointer;
+    opacity: .8;
+}
+    #rightArrow:hover{
+        opacity: 1;
+    }

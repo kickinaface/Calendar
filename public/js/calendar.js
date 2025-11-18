@@ -13,7 +13,7 @@ function Calendar(){
     var isControlsShown = false;
     var isBlackButtonText = "white";
     this.customSeasonNames = ["1st Light (old: N/A 2025, new: May 17, 2026 - July 18, 2026)","2nd Light (old: July 6, 2025 - Sept 6, 2025 new: July 5, 2026 - N/A)","1st Half (Sept 7, 2025 - Nov 8, 2025)",
-                        "1st Darkness (Nov 9, 2025 - Jan 10, 2025)","2nd Darkness (Jan 11, 2025 - Mar 14, 2025)","2nd Half (Mar 15, 2025 - May 16, 2025)"];
+                        "1st Darkness (Nov 9, 2025 - Jan 10, 2026)","2nd Darkness (Jan 11, 2026 - Mar 14, 2026)","2nd Half (Mar 15, 2026 - May 16, 2026)"];
     this.completedEvents = [];
     this.inCompleteEvents = [];
     this.completedTasks = [];
@@ -923,4 +923,25 @@ function clearProgressWrapper(){
     var progressTableOutput = document.querySelector("#progressTableOutput");
     progressTableOutput.innerHTML = "";
 }
+
+function gotoDatePanel(datePosition){
+    var dayIndex = document.querySelector("#dayIndex").value;
+    var calendarWrapper = document.querySelectorAll(".calendarWrapper ul li");
+    calendar.closeModal();
+    if(datePosition == -1){
+        setTimeout(function(){
+            calendarWrapper[dayIndex-2].click();
+        },200);
+    } else if(datePosition == 1){
+        setTimeout(function(){
+            calendarWrapper[(parseInt(dayIndex))].click();
+        },200);
+    }
+}
+// Add escape key to close modal
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        calendar.closeModal(true); 
+    }
+});
 var calendar = new Calendar();

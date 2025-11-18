@@ -18,6 +18,10 @@
         <div class="modalContentWrapper">
             <h2>Edit Day</h2>
             <input type="hidden" id="dayIndex">
+            <div class="arrowWrapper">
+                <div id="leftArrow" onclick="gotoDatePanel(-1);">&larr;</div>
+                <div id="rightArrow" onclick="gotoDatePanel(1);">&rarr;</div>
+            </div>
             <br>
             <div class="inputWrapper">
             </div>
@@ -44,7 +48,7 @@
                 <h3>Progress Tracker:</h3>
                 <ul style="padding-top:10px;">
                     <li>
-                        <label for="completedTasksPercent">Completed Tasks: </label>
+                        <label for="completedTasksPercent">Completed Tasks: &nbsp; </label>
                         <progress id="completedTasksPercent" value="0" max="100"></progress>
                         <span id="completedTasksLabel"></span>
                     </li>
