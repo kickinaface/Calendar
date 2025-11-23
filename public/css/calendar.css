@@ -144,3 +144,8 @@
     #rightArrow:hover{
         opacity: 1;
     }
+
+.customLabel{
+    width: 100px !important;
+    margin-bottom: 10px;
+}
