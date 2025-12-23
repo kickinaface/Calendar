@@ -7,12 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/superUtil.js"></script>
     <script src="js/calendar.js"></script>
-    <script src="Years/2025/November/externalCalendar.js"></script>
+    <script src="Years/2025/December/externalCalendar.js"></script>
     <title>Christopher's Digital Solutions: Calendar</title>
 </head>
 <body>
     <div class="navBar">
         <span class="logo">Christopher's Digital Solutions: Calendar</span>
+    </div>
+    <div class="fixedControlsWrapper">
+        <button onclick="scrollToTop();">Back to Top</button>
+        <button onclick="reloadCalendarPage();">Refresh Calendar</button>
     </div>
     <div class="fullScreenWrapper">
         <div class="modalContentWrapper">
@@ -35,7 +39,11 @@
     </div>
     <br>
     <div class="calendarWrapper">
-        <center><h1>Month</h1></center>
+        <center>
+            <h1>Month</h1>
+            <div>
+        </div>
+        </center>
         <ul>
             <!-- <li></li> -->
         </ul>
@@ -43,7 +51,6 @@
     <br>    
     <div class="calendarOutputWrapper" style="margin:15px;">
         <center>
-            <br>
             <div class="progressTrack">
                 <h3>Progress Tracker:</h3>
                 <ul style="padding-top:10px;">
@@ -91,6 +98,7 @@
                     <li><a href="/Years/2025/August/">August</a></li>
                     <li><a href="/Years/2025/September/">September</a></li>
                     <li><a href="/Years/2025/October/">October</a></li>
+                    <li><a href="/Years/2025/November/">November</a></li>
                 </ul>
             </div>
             <br><br><br>

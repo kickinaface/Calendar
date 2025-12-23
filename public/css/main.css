@@ -73,7 +73,13 @@
         background-color: black;
         padding: 10px; */
     }
-    
+    .fixedControlsWrapper{
+        position: fixed;
+        bottom: 5px;
+        right: 20px;
+    }   .fixedControlsWrapper button{
+            box-shadow: 1px 3px 3px grey;
+        }
     .fullScreenWrapper{
         background-color:rgba(0,0,0, 0.5);
         position: fixed;

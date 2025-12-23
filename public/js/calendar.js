@@ -650,17 +650,27 @@ function Calendar(){
         //Empty out inputWrapper
         var inputWrapper = document.querySelector(".inputWrapper");
         var buttonWrapper = document.querySelector(".buttonWrapper");
+        var heldLabelColor = "#FFFFFF";
+        var heldLabelFontColor = "#000000";
+        // choose if text is black or white
         if(calendar.chosenTheme == calendar.themes[2]){
             isBlackButtonText = "black";
         } else {
             isBlackButtonText = "white";
+        }
+        // Apply label colors if already held
+        if(calendar.monthStructure[dayIndex].events[eventIndex].labelColor != undefined){
+            heldLabelColor = calendar.monthStructure[dayIndex].events[eventIndex].labelColor;
+        }
+        if(calendar.monthStructure[dayIndex].events[eventIndex].labelFontColor != undefined){
+            heldLabelFontColor = calendar.monthStructure[dayIndex].events[eventIndex].labelFontColor;
         }
         //
         var preparedName = JSON.stringify(calendar.monthStructure[dayIndex].events[eventIndex].name);
         inputWrapper.innerHTML = "<center><h2>Edit Event:<br><br></h2><b>Event Name: </b><br><input type='text' class='eventName' placeholder='Event Name' value="+preparedName+">" +
         "<br><br><b>Event Time:</b><br><input type='text' class='eventTime' placeholder='"+calendar.monthStructure[dayIndex].events[eventIndex].time+" (example: 3:00)'> <select id='timeCycle'><option value='am'>AM</option><option value='pm'>PM</option></select>"+
         "<br><br><b>Event Notes:</b><br><textarea class='eventNotes' placeholder='Event Notes'>"+calendar.monthStructure[dayIndex].events[eventIndex].notes+"</textarea>"+
-        "<br><br><b>Customize Label:</b><br> <br><input type='color' id='labelHex' class='customLabel' value='#ffffff'> Label Background Color<br><input type='color' id='labelFontHex' class='customLabel' value='#000000'> Label Text Color<br> <input id='isCustomLabel' class='customLabel' type='checkbox' name='isCustomLabel' value='false' /><label for='isCustomLabel'>(Check to Customize Label)</label>"+
+        "<br><br><b>Customize Label:</b><br> <br><input type='color' id='labelHex' class='customLabel' value='"+heldLabelColor+"'> Label Background Color<br><input type='color' id='labelFontHex' class='customLabel' value='"+heldLabelFontColor+"'> Label Text Color<br> <input id='isCustomLabel' class='customLabel' type='checkbox' name='isCustomLabel' value='false' /><label for='isCustomLabel'>(Check to Customize Label)</label>"+
         "<p><button onclick='calendar.executeEditEvent("+dayIndex+", "+eventIndex+");' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+";'>Save</button></p>"+
         "</center>";
         buttonWrapper.style.display = "none";
@@ -701,17 +711,27 @@ function Calendar(){
         //Empty out inputWrapper
         var inputWrapper = document.querySelector(".inputWrapper");
         var buttonWrapper = document.querySelector(".buttonWrapper");
+        var heldLabelColor = "#FFFFFF";
+        var heldLabelFontColor = "#000000";
+        // choose if text is black or white
         if(calendar.chosenTheme == calendar.themes[2]){
             isBlackButtonText = "black";
         } else {
             isBlackButtonText = "white";
+        }
+        // Apply label colors if already held
+        if(calendar.monthStructure[dayIndex].tasks[taskIndex].labelColor != undefined){
+            heldLabelColor = calendar.monthStructure[dayIndex].tasks[taskIndex].labelColor;
+        }
+        if(calendar.monthStructure[dayIndex].tasks[taskIndex].labelFontColor != undefined){
+            heldLabelFontColor = calendar.monthStructure[dayIndex].tasks[taskIndex].labelFontColor;
         }
         //
         var preparedName = JSON.stringify(calendar.monthStructure[dayIndex].tasks[taskIndex].name);
         inputWrapper.innerHTML = "<center><br><h2>Edit Task:</h2><br><b>Task Name: </b><br><input type='text' class='taskName' placeholder='Task Name' value="+preparedName+">" +
         "<br><br><b>Task Time:</b><br><input type='text' class='taskTime' placeholder='"+calendar.monthStructure[dayIndex].tasks[taskIndex].time+" (example: 3:00)'> <select id='timeCycle'><option value='am'>AM</option><option value='pm'>PM</option></select>"+
         "<br><br><b>Task Notes:</b><textarea class='taskNotes' placeholder='Event Notes'>"+calendar.monthStructure[dayIndex].tasks[taskIndex].notes+"</textarea>"+
-       "<br><br><b>Customize Label:</b><br> <br><input type='color' id='labelHex' class='customLabel' value='#ffffff'> Label Background Color<br><input type='color' id='labelFontHex' class='customLabel' value='#000000'> Label Text Color<br> <input id='isCustomLabel' class='customLabel' type='checkbox' name='isCustomLabel' value='false' /><label for='isCustomLabel'>(Check to Customize Label)</label>"+
+       "<br><br><b>Customize Label:</b><br> <br><input type='color' id='labelHex' class='customLabel' value='"+heldLabelColor+"'> Label Background Color<br><input type='color' id='labelFontHex' class='customLabel' value='"+heldLabelFontColor+"'> Label Text Color<br> <input id='isCustomLabel' class='customLabel' type='checkbox' name='isCustomLabel' value='false' /><label for='isCustomLabel'>(Check to Customize Label)</label>"+
         "<p><button onclick='calendar.executeEditTask("+dayIndex+", "+taskIndex+");' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+"'>Save</button></p>"+
         "</center>";
         buttonWrapper.style.display = "none";
