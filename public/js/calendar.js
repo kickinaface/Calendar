@@ -263,7 +263,23 @@ function Calendar(){
         }
         // No events or tasks
         if(this.monthStructure[dayIndex].events.length==0 && this.monthStructure[dayIndex].tasks.length==0){
-            modalMessages.innerHTML = "<i>There are no events or tasks here. </i>"
+            // Adjust arrow wings when event list is none.
+            document.querySelector("#leftArrow").style.marginTop = "0";
+            document.querySelector("#leftArrow").style.paddingTop = "50px";
+            document.querySelector("#leftArrow").style.paddingBottom = "50px";
+            document.querySelector("#rightArrow").style.marginTop = "0";
+            document.querySelector("#rightArrow").style.paddingTop = "50px";
+            document.querySelector("#rightArrow").style.paddingBottom = "50px";
+            //document.querySelector(".closeModal").style.height = "none";
+            modalMessages.innerHTML = "<i>There are no events or tasks here. </i>";
+        } else {
+            // Adjust arrow wings when event list contains items.
+            document.querySelector("#leftArrow").style.marginTop = "5%";
+            document.querySelector("#leftArrow").style.paddingTop = "100px";
+            document.querySelector("#leftArrow").style.paddingBottom = "100px";
+            document.querySelector("#rightArrow").style.marginTop = "5%";
+            document.querySelector("#rightArrow").style.paddingTop = "100px";
+            document.querySelector("#rightArrow").style.paddingBottom = "100px";
         }
 
         // theme buttons
@@ -378,7 +394,7 @@ function Calendar(){
                     (eventTime.value+" "+document.querySelector("#timeCycle").value), 
                     eventNotes.value
                 );
-                alert('Event added...');
+                //alert('Event added...');
                 calendar.closeModal();
                 buildCalendar();
             } else if(isRepeatEvent == true){
@@ -393,7 +409,7 @@ function Calendar(){
                         eventNotes.value
                     );
                 }
-                alert('Added Repeating Events...');
+                //alert('Added Repeating Events...');
                 calendar.closeModal();
                 buildCalendar();
             }
@@ -447,7 +463,7 @@ function Calendar(){
                     (taskTime.value+" "+document.querySelector("#timeCycle").value), 
                     taskNotes.value
                 );
-                alert('Task added...');
+                //alert('Task added...');
                 calendar.closeModal();
                 buildCalendar();
             } else if(isTaskRepeat == true){
@@ -462,7 +478,7 @@ function Calendar(){
                         taskNotes.value
                     );
                 }
-                alert('Added Repeated Tasks...');
+                //alert('Added Repeated Tasks...');
                 calendar.closeModal();
                 buildCalendar();
             }
@@ -514,6 +530,9 @@ function Calendar(){
             calendar.inCompleteEvents = [];
             calendar.completedTasks = [];
             calendar.inCompleteTasks = [];
+            // Reset reverse arrays for completed lists.
+            isLoadCompletedClicked = false;
+            isLoadEventCompletedClicked = false;
             // Populate Calendar events and tasks per day       
             for(let c = 0; c<= calendarDays.length-1; c++){
                 //populate events
@@ -543,7 +562,7 @@ function Calendar(){
                     calendarDays[c].style.background = calendar.chosenTheme;
                     calendarDays[c].style.borderColor = calendar.chosenTheme;
                     calendarDays[c].addEventListener("mouseover", function(e){
-                        e.currentTarget.style.opacity = '.3';
+                        e.currentTarget.style.opacity = '.8';
                     });
                     calendarDays[c].addEventListener("mouseout", function(e){
                         e.currentTarget.style.opacity = '1';
@@ -828,7 +847,7 @@ function Calendar(){
         isBlackButtonText = innerTextColor;
 
         if(colorScheme == -1){
-            alert("Selected custom hex value.");
+            //alert("Selected custom hex value.");
             if(isBlackButtonText == "white"){
                 isBlackText = false;
             } else {
@@ -926,13 +945,20 @@ function clearOrbHover(){
     seasonName.innerHTML = calendar.customSeasonNames[3];// change this when you change seasons...
     seasonName.style.opacity = "1";
 }
-
+//kinda hacky
+var isLoadCompletedClicked = false;
 function loadCompletedTasks(){
     var progressTableOutput = document.querySelector("#progressTableOutput");
+    var reverseTasks = calendar.completedTasks;
+    if(isLoadCompletedClicked == false){
+        isLoadCompletedClicked = true;
+        reverseTasks = calendar.completedTasks.reverse();
+    }
+    //
     progressTableOutput.innerHTML = "";
     progressTableOutput.innerHTML +="<li><b>Completed Tasks:</b></li>"
-    for(var i = 0; i<= calendar.completedTasks.length-1; i++){
-        progressTableOutput.innerHTML += "<li><b>Task Name:</b> "+calendar.completedTasks[i].name+" <b>Day:</b> "+calendar.completedTasks[i].day+" <b>Time:</b> "+calendar.completedTasks[i].time+"</li>";
+    for(var i = 0; i<= reverseTasks.length-1; i++){
+        progressTableOutput.innerHTML += "<li><b>Task Name:</b> "+reverseTasks[i].name+" <b>Day:</b> "+reverseTasks[i].day+" <b>Time:</b> "+reverseTasks[i].time+"</li>";
     }
     progressTableOutput.innerHTML +="<li><button onclick='clearProgressWrapper();'>Clear</button></li>";
 }
@@ -946,13 +972,19 @@ function loadInCompleteTasks(){
     }
     progressTableOutput.innerHTML +="<li><button onclick='clearProgressWrapper();'>Clear</button></li>";
 }
-
+//kinda hacky
+var isLoadEventCompletedClicked = false;
 function loadCompletedEvents(){
     var progressTableOutput = document.querySelector("#progressTableOutput");
+    var reverseEvents = calendar.completedEvents;
+    if(isLoadEventCompletedClicked == false){
+        isLoadEventCompletedClicked = true;
+        reverseEvents = calendar.completedEvents.reverse();
+    }
     progressTableOutput.innerHTML = "";
     progressTableOutput.innerHTML +="<li><b>Completed Events:</b></li>"
-    for(var i = 0; i<= calendar.completedEvents.length-1; i++){
-        progressTableOutput.innerHTML += "<li><b>Event Name:</b> "+calendar.completedEvents[i].name+" <b>Day:</b> "+calendar.completedEvents[i].day+" <b>Time:</b> "+calendar.completedEvents[i].time+"</li>";
+    for(var i = 0; i<= reverseEvents.length-1; i++){
+        progressTableOutput.innerHTML += "<li><b>Event Name:</b> "+reverseEvents[i].name+" <b>Day:</b> "+reverseEvents[i].day+" <b>Time:</b> "+reverseEvents[i].time+"</li>";
     }
     progressTableOutput.innerHTML +="<li><button onclick='clearProgressWrapper();'>Clear</button></li>";
 }

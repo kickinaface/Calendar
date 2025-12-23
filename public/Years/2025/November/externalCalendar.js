@@ -1,4 +1,4 @@
-var isPast = false;
+var isPast = true;
 var Calendar_monthName = "November";
 var Calendar_year = 2025;
 var Calendar_numDaysInMonth = 30;
