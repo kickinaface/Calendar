@@ -1,7 +1,7 @@
 // Build visual calendar
 var title = document.querySelector(".calendarWrapper h1");
 var superUtil = new SuperUtil();
-
+var isAutoSync = true;
 // Build out the month
 calendar.monthName = Calendar_monthName;
 calendar.year = Calendar_year;
@@ -36,6 +36,7 @@ if(isPast == false){
 }
 
 calendar.init();
+autoSync();
 
 function reloadCalendarPage(){
     window.scrollTo({
@@ -52,6 +53,17 @@ function scrollToTop(){
         top: 0,
         behavior: 'smooth'
     });
+}
+
+function autoSync(){
+    // Sync Every hour
+    if(isAutoSync == true){
+        setInterval(function(){
+            // save calendar but without the alert.. Show button
+            document.querySelector("#autoSavingBtn").style.display = "block";
+            calendar.autoSync(true);
+        },(1000*60)*60);
+    }
 }
 
 

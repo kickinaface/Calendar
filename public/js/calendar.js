@@ -64,8 +64,10 @@ function Calendar(){
             isControlsShown = false;
         }
     }
-
-    function syncJSONwithExternalCalendar(){
+    this.autoSync = function autoSync(autoSave){
+        syncJSONwithExternalCalendar(autoSave);
+    }
+    function syncJSONwithExternalCalendar(autoSave){
         // Grab the JSON structure from the input field
         // Then, save it to the externalCalendar variable to be kept for later.
         var calendarOutput = document.querySelector("#calendarOutput");
@@ -78,7 +80,7 @@ function Calendar(){
             // Rewrite stored calendar value
             if(status == 200){
                 isSync = true;
-                isSyncMessage = response.message;
+                isSyncMessage = response
             } else {
                 isSync = false;
             }
@@ -86,12 +88,21 @@ function Calendar(){
 
         // Hold a moment before server activity or else it will alert twice.
         setTimeout(function(){
+            isSyncMessage = JSON.parse(isSyncMessage)
             if(isSync == true){
-                alert(isSyncMessage);
+                if(autoSave != undefined && autoSave == true){
+                    document.querySelector("#autoSavingBtn").style.display = "none";
+                } else {
+                    alert(isSyncMessage.message);
+                }
             } else {
-                alert("There was a probleming syncing your calendar.")
+                if(autoSave != undefined && autoSave == true){
+                    // do nothing...
+                } else {
+                    alert("There was a probleming syncing your calendar.");
+                }
             }
-        },1000);
+        },2000);
     }
     this.generateMonth = function generateMonth(){
         setTimeout(() => {
