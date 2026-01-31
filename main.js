@@ -66,6 +66,11 @@ router.route("/calBackup").post(function(req, res){
 app.use('/api', router);
 app.use(express.static(__dirname + '/public'));
 
+// The 404 Handler
+app.use((req, res, next) => {
+  res.status(404).sendFile(__dirname+'/pages/index.html');
+});
+
 //START THE server
 //=====================================================
 app.listen(port);

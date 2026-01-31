@@ -1,4 +1,5 @@
 function Calendar(){
+    this.currentTime = undefined;
     this.monthName = "";
     this.numDaysInMonth = null;
     this.monthStructure = [];
@@ -195,16 +196,22 @@ function Calendar(){
             },20);
         },500);
     }
-
+   
+    var modalClock = undefined; // tick tock interval for modal;
     this.openDialog = function openDialog(dayElement, dialogTitle, dayIndex, isCalItem){
         var fullScreenWrapper = document.querySelector(".fullScreenWrapper");
         var title = fullScreenWrapper.querySelector("h2");
+        var modalTime = fullScreenWrapper.querySelector("#modalTime");
         var buttonWrapper = document.querySelector(".buttonWrapper");
         var modalMessages = document.querySelector('.modalMessages');
         var inputWrapper = document.querySelector(".inputWrapper");
         var dayIndexHidden = document.querySelector("#dayIndex");
         // Build up current dialog for picked date.
         title.textContent = dialogTitle;
+        // Get current time and place it in the modal
+        modalClock = setInterval(function(){
+            modalTime.innerHTML = calendar.currentTime;
+        },1000);
         fullScreenWrapper.style.display = "block";
         buttonWrapper.style.display = "block";
         modalMessages.style.display = "block";
@@ -322,7 +329,7 @@ function Calendar(){
             animateDialogOut();
         }
         
-        
+        clearInterval(modalClock);
     }
 
     function animateDialogOut(){
@@ -952,7 +959,7 @@ function updateSeasonStyles(hex){
     // manually list current season name
     var seasonName = document.querySelector("#seasonName");
     seasonName.style.opacity = "1";
-    seasonName.innerHTML = calendar.customSeasonNames[3];// change this when you change seasons...
+    seasonName.innerHTML = calendar.customSeasonNames[4];// change this when you change seasons...
 }
 function hoverSeasonOrb(element){
     var seasonName = document.querySelector("#seasonName");
@@ -973,7 +980,7 @@ function hoverSeasonOrb(element){
 }
 function clearOrbHover(){
     var seasonName = document.querySelector("#seasonName");
-    seasonName.innerHTML = calendar.customSeasonNames[3];// change this when you change seasons...
+    seasonName.innerHTML = calendar.customSeasonNames[4];// change this when you change seasons...
     seasonName.style.opacity = "1";
 }
 //kinda hacky

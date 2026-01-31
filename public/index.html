@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/superUtil.js"></script>
     <script src="js/calendar.js"></script>
-    <script src="Years/2025/December/externalCalendar.js"></script>
+    <script src="Years/2025/November/externalCalendar.js"></script>
     <title>Christopher's Digital Solutions: Calendar</title>
 </head>
 <body>
@@ -22,6 +22,7 @@
     <div class="fullScreenWrapper">
         <div class="modalContentWrapper">
             <h2>Edit Day</h2>
+            <div id="modalTime" style="font-size: 14pt; margin-top:5px;"></div>
             <input type="hidden" id="dayIndex">
             <div class="arrowWrapper">
                 <div id="leftArrow" onclick="gotoDatePanel(-1);">&larr;</div>
@@ -42,8 +43,7 @@
     <div class="calendarWrapper">
         <center>
             <h1>Month</h1>
-            <div>
-        </div>
+            <div></div>
         </center>
         <ul>
             <!-- <li></li> -->

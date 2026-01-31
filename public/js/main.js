@@ -25,11 +25,13 @@ if(isPast == false){
         if(tick == false){
             formattedTime = formattedTime.replace(":"," ");
             tick = true;
+            calendar.currentTime = formattedTime;
         } else if(tick == true) {
             // do nothing
             tick = false;
         }
         title.innerHTML = calendar.monthName +" "+(calendar.formattedDate) + "<br><span style='font-size:14pt'>"+ formattedTime+"</span>";
+        calendar.currentTime = formattedTime;
     },1000);
 } else if(isPast == true) {
     title.innerHTML = calendar.monthName +" "+(calendar.year);
@@ -65,5 +67,3 @@ function autoSync(){
         },(1000*60)*60);
     }
 }
-
-
