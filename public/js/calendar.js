@@ -1056,6 +1056,32 @@ function gotoDatePanel(datePosition){
         },200);
     }
 }
+var liveInterval = undefined;
+var isLiveInterval = false;
+var liveCalendarSeconds = 10000;//10 seconds default
+function toggleLiveInterval(notUi, setSeconds){
+    var liveToggleBtn = document.querySelector("#liveToggleBtn");
+    //
+    if(isLiveInterval == false){
+        if(notUi != true){
+            calendar.init(); 
+        }
+        isLiveInterval = true;
+        if(setSeconds){
+            liveCalendarSeconds = (setSeconds * 1000);
+        }
+        liveInterval = setInterval(function(){
+            calendar.init(); 
+        }, liveCalendarSeconds);
+        liveToggleBtn.innerHTML = "LIVE Mode: <span style='color:greenyellow;'>ON</span>";;
+        isLiveInterval = true;
+    } else if(isLiveInterval == true){
+        isLiveInterval = false;
+        clearInterval(liveInterval);
+        liveInterval = undefined;
+        liveToggleBtn.innerHTML = "LIVE Mode: <span style='color:red;'>OFF</span>";
+    }
+}
 // Add escape key to close modal
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {

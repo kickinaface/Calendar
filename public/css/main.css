@@ -64,15 +64,7 @@
     a{
         color:#424242;
     }
-    a:active{
-        /* color:red; */
-    }
-    a:hover{
-        /* color:greenyellow;
-        font-weight: bold;
-        background-color: black;
-        padding: 10px; */
-    }
+
     .fixedControlsWrapper{
         position: fixed;
         bottom: 5px;

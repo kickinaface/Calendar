@@ -149,3 +149,88 @@
     width: 100px !important;
     margin-bottom: 10px;
 }
+
+/* Media Queries for mobile */
+@media (max-width: 1600px) {
+    .calendarWrapper ul li {
+        width: 10.4%;
+    }
+}
+@media (max-width: 1450px) {
+    .calendarWrapper ul li {
+        width: 12.5%;
+    }
+}
+@media (max-width: 1400px) {
+    .calendarWrapper ul li {
+        width: 15.3%;
+    }
+}
+@media (max-width: 1240px) {
+    .calendarWrapper ul li {
+        width: 14.9%;
+    }
+}
+@media (max-width: 1180px) {
+    .calendarWrapper ul li {
+        width: 14.8%;
+    }
+}
+
+@media (max-width: 1145px) {
+    .calendarWrapper ul li {
+        width: 14.6%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .calendarWrapper ul li {
+        width: 14.4%;
+    }
+}
+@media (max-width: 1050px) {
+    .calendarWrapper ul li {
+        width: 14%;
+    }
+}
+@media (max-width: 1000px) {
+    .calendarWrapper ul li {
+        width: 14.1%;
+    }
+}
+@media (max-width: 950px) {
+    .calendarWrapper ul li {
+        width: 13.9%;
+    }
+}
+@media (max-width: 925px) {
+    .calendarWrapper ul li {
+        width: 13.5%;
+    }
+}
+@media (max-width: 850px) {
+    .calendarWrapper ul li {
+        width: 25.5%;
+    }
+}
+@media (max-width: 800px) {
+    .calendarWrapper ul li {
+        width: 25.5%;
+    }
+}
+@media (max-width: 780px) {
+    .calendarWrapper ul li {
+        width: 24.3%;
+    }
+}
+@media (max-width: 750px) {
+    .calendarWrapper ul li {
+        width: 24.3%;
+    }
+}
+
+@media (max-width: 720px) {
+    .calendarWrapper ul li {
+        width: 24.3%;
+    }
+}
