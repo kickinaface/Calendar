@@ -37,6 +37,7 @@
         margin-bottom: 3px;
         border-radius: 3px;
         font-weight: bold;
+        color: black;
     }
 
 .calendarOutputWrapper {
@@ -232,5 +233,14 @@
 @media (max-width: 720px) {
     .calendarWrapper ul li {
         width: 24.3%;
+    }
+}
+
+@media (prefers-color-scheme: dark){
+    #progressTableOutput{
+        color:black;
+    }
+    .previousMonthsWrapper ul li a{
+        color: white !important;
     }
 }

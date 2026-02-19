@@ -39,7 +39,7 @@ if(isPast == false){
 
 calendar.init();
 autoSync();
-//toggleLiveInterval(true, 30); // refresh calendar data every 30 seconds
+toggleLiveInterval(true, 300); // refresh calendar data every 300 seconds (5 min)
 
 function reloadCalendarPage(){
     window.scrollTo({

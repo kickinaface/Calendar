@@ -227,25 +227,36 @@ function Calendar(){
         // Populate stored events.
         if(this.monthStructure[dayIndex].events.length!=0){
             inputWrapper.innerHTML +="<br><h3>Event List:</h3><br>";
+            var completedText;
+            var isCompleteValue;
             // Loop through events array and build the list
             for(var e=0; e<= this.monthStructure[dayIndex].events.length-1; e++){
                 var labelColor = "#FFFFFF";
                 var labelFontColor = "#000000";
-                //
+
+                isCompleteValue = this.monthStructure[dayIndex].events[e].isComplete;
+
+                // Check isComplete modify text button
+                if(isCompleteValue == false){
+                    completedText = "Mark Completed";
+                } else if(isCompleteValue == true){
+                    completedText = "Mark Incomplete";
+                }
+                // style labels
                 if(this.monthStructure[dayIndex].events[e].labelColor != undefined){
                     labelColor = this.monthStructure[dayIndex].events[e].labelColor;
                 }
-                
+                // style label fonts
                 if(this.monthStructure[dayIndex].events[e].labelFontColor != undefined){
                     labelFontColor = this.monthStructure[dayIndex].events[e].labelFontColor;
                 }
                 inputWrapper.innerHTML += "<div class='eventWrapper' style='background:"+labelColor+"; color:"+labelFontColor+";'><h3>Event: </h3><b>Name: </b>"+this.monthStructure[dayIndex].events[e].name+
                 " <br><b>Time: </b>"+this.monthStructure[dayIndex].events[e].time+"<br>"+
-                "<b>Event Completed: </b>"+this.monthStructure[dayIndex].events[e].isComplete+
+                "<b>Event Completed: </b>"+isCompleteValue+
                 "<br><b>Notes: </b>"+this.monthStructure[dayIndex].events[e].notes+
                 "<br><center><button onclick='calendar.editEvent(event, "+dayIndex+", "+e+");'>Edit Event</button>"+
                 "<button onclick='calendar.deleteEvent(event, "+dayIndex+", "+e+");'>Delete Event</button>"+
-                "<button onclick='calendar.completeEvent(event, "+dayIndex+", "+e+");'>Mark Completed</button>"+
+                "<button onclick='calendar.completeEvent(event, "+dayIndex+", "+e+");'>"+completedText+"</button>"+
                 "<button onclick='calendar.moveUp(`Event`, "+dayIndex+", "+e+");'>&#x25B2;</button>"+
                 "<button onclick='calendar.moveDown(`Event`, "+dayIndex+", "+e+");'>&#x25BC;</button></center></div><br>";
             }
@@ -255,25 +266,36 @@ function Calendar(){
         if(this.monthStructure[dayIndex].tasks.length!=0){
             // Loop through events array and build the list
             inputWrapper.innerHTML +="<br><h3>Task List:</h3><br>";
+            var completedText;
+            var isCompleteValue;
             for(var e=0; e<= this.monthStructure[dayIndex].tasks.length-1; e++){
                 var labelColor = "#FFFFFF";
                 var labelFontColor = "#000000";
+                
+                isCompleteValue = this.monthStructure[dayIndex].tasks[e].isComplete;
                 //
+                // Check isComplete modify text button
+                if(isCompleteValue == false){
+                    completedText = "Mark Completed";
+                } else if(isCompleteValue == true){
+                    completedText = "Mark Incomplete";
+                }
+                // style labels
                 if(this.monthStructure[dayIndex].tasks[e].labelColor != undefined){
                     labelColor = this.monthStructure[dayIndex].tasks[e].labelColor;
                 }
-                
+                // style label fonts
                 if(this.monthStructure[dayIndex].tasks[e].labelFontColor != undefined){
                     labelFontColor = this.monthStructure[dayIndex].tasks[e].labelFontColor;
                 }
                 //
                 inputWrapper.innerHTML += "<div class='taskWrapper' style='background:"+labelColor+"; color:"+labelFontColor+";'><h3>Task: </h3><b>Name: </b>"+this.monthStructure[dayIndex].tasks[e].name+
                 " <br><b>Time: </b>"+this.monthStructure[dayIndex].tasks[e].time+"<br>"+
-                "<b>Task Completed: </b>"+this.monthStructure[dayIndex].tasks[e].isComplete+
+                "<b>Task Completed: </b>"+isCompleteValue+
                 "<br><b>Notes: </b>"+this.monthStructure[dayIndex].tasks[e].notes+
                 "<br><center><button onclick='calendar.editTask(event, "+dayIndex+", "+e+");'>Edit Task</button>"+
                 "<button onclick='calendar.deleteTask(event, "+dayIndex+", "+e+");'>Delete Task</button>"+
-                "<button onclick='calendar.completeTask(event, "+dayIndex+", "+e+");'>Mark Completed</button>"+
+                "<button onclick='calendar.completeTask(event, "+dayIndex+", "+e+");'>"+completedText+"</button>"+
                 "<button onclick='calendar.moveUp(`Task`, "+dayIndex+", "+e+");'>&#x25B2;</button>"+
                 "<button onclick='calendar.moveDown(`Task`, "+dayIndex+", "+e+");'>&#x25BC;</button></center></div><br>";
             }
@@ -807,10 +829,14 @@ function Calendar(){
 
     this.completeEvent = function completeEvent(element, dayIndex, eventIndex){
         var calendarListObjects = document.querySelectorAll(".calendarWrapper ul li");
+        var completedValue = calendar.monthStructure[dayIndex].events[eventIndex].isComplete;
         // Complete event
-        if(confirm("Are you sure you wish to mark this event as completed?")){
-            calendar.monthStructure[dayIndex].events[eventIndex].isComplete = true;
-            //alert("This event is marked completed!");
+        if(confirm("Are you sure you wish to change completed value?")){
+            if(completedValue == false){
+                calendar.monthStructure[dayIndex].events[eventIndex].isComplete = true;
+            } else if(completedValue == true){
+                calendar.monthStructure[dayIndex].events[eventIndex].isComplete = false;
+            }
             calendar.closeModal();
             buildCalendar();
             calendarListObjects[dayIndex].click();
@@ -819,10 +845,14 @@ function Calendar(){
 
     this.completeTask = function completeTask(element, dayIndex, taskIndex){
         var calendarListObjects = document.querySelectorAll(".calendarWrapper ul li");
+        var completedValue = calendar.monthStructure[dayIndex].tasks[taskIndex].isComplete;
         // Complete task
-        if(confirm("Are you sure you wish to mark this task as completed?")){
-            calendar.monthStructure[dayIndex].tasks[taskIndex].isComplete = true;
-            //alert("This event is marked completed!");
+        if(confirm("Are you sure you wish to change completed value?")){
+            if(completedValue == false){
+                calendar.monthStructure[dayIndex].tasks[taskIndex].isComplete = true;
+            } else if(completedValue == true){
+                calendar.monthStructure[dayIndex].tasks[taskIndex].isComplete = false;
+            }
             calendar.closeModal();
             buildCalendar();
             calendarListObjects[dayIndex].click();
@@ -1082,10 +1112,28 @@ function toggleLiveInterval(notUi, setSeconds){
         liveToggleBtn.innerHTML = "LIVE Mode: <span style='color:red;'>OFF</span>";
     }
 }
+
+function updateLiveInterval(val){
+    isLiveInterval = false;
+    clearInterval(liveInterval);
+    liveInterval = undefined;
+    toggleLiveInterval(true, val);
+}
 // Add escape key to close modal
 document.addEventListener('keydown', (event) => {
+    var fullScreenWrapper = document.querySelector(".fullScreenWrapper");
+    //
     if (event.key === 'Escape') {
         calendar.closeModal(true); 
+    }
+    // Only if modal is already open, use keyboard arrows to use "panel wings"
+    if(fullScreenWrapper.style.display == "block"){
+        if(event.key === "ArrowLeft"){
+            gotoDatePanel(-1);
+        }
+        if(event.key === "ArrowRight"){
+            gotoDatePanel(1);
+        }
     }
 });
 var calendar = new Calendar();
