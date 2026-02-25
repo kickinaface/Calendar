@@ -19,6 +19,7 @@ function Calendar(){
     this.inCompleteEvents = [];
     this.completedTasks = [];
     this.inCompleteTasks = [];
+    this.isEditingContent = false;
     //
     this.init = function(){
         // Get the held month data from backend and populate the calendar.
@@ -352,6 +353,7 @@ function Calendar(){
         }
         
         clearInterval(modalClock);
+        calendar.isEditingContent = false;
     }
 
     function animateDialogOut(){
@@ -715,6 +717,8 @@ function Calendar(){
         "</center>";
         buttonWrapper.style.display = "none";
 
+        calendar.isEditingContent = true;
+
     }
         this.executeEditEvent = function executeEditEvent(dayIndex, eventIndex){
             var calendarListObjects = document.querySelectorAll(".calendarWrapper ul li");
@@ -775,6 +779,8 @@ function Calendar(){
         "<p><button onclick='calendar.executeEditTask("+dayIndex+", "+taskIndex+");' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+"'>Save</button></p>"+
         "</center>";
         buttonWrapper.style.display = "none";
+
+        calendar.isEditingContent = true;
     }
         this.executeEditTask = function executeEditTask(dayIndex, taskIndex){
             var calendarListObjects = document.querySelectorAll(".calendarWrapper ul li");
@@ -1127,7 +1133,7 @@ document.addEventListener('keydown', (event) => {
         calendar.closeModal(true); 
     }
     // Only if modal is already open, use keyboard arrows to use "panel wings"
-    if(fullScreenWrapper.style.display == "block"){
+    if(fullScreenWrapper.style.display == "block" && calendar.isEditingContent == false){
         if(event.key === "ArrowLeft"){
             gotoDatePanel(-1);
         }
