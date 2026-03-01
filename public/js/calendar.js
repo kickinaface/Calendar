@@ -8,6 +8,7 @@ function Calendar(){
     this.chosenTheme = null;
     const today = new Date();
     const day = today.getDate();
+    this.dayNum = undefined;
     const month = today.getMonth() +1;
     const year = today.getFullYear();
     this.formattedDate = `${month}/${day}/${year}`;
@@ -412,6 +413,8 @@ function Calendar(){
         "<br><BR><BR><p><button onclick='calendar.executeAddEvent();' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+";'>Add Event</button></p>"+
         "</center>";
         inputWrapper.style.display = "block";
+
+        calendar.isEditingContent = true;
     }
 
     this.executeAddEvent = function executeAddEvent(){
@@ -482,6 +485,8 @@ function Calendar(){
         "<br><BR><BR><p><button onclick='calendar.executeTaskEvent();' style='background:"+calendar.chosenTheme+"; color:"+isBlackButtonText+";'>Add Task</button></p>"+
         "</center>";
         inputWrapper.style.display = "block";
+
+        calendar.isEditingContent = true;
     }
     this.executeTaskEvent = function executeTaskEvent(){
         //Get value of input fields. Throw errors if missing
@@ -629,6 +634,7 @@ function Calendar(){
                 if(c == (day-1) && isPast != true){
                     calendarDays[c].style.background = "black";
                     calendarDays[c].style.border = "1px solid black";
+                    calendar.dayNum = day;
                 } else {
                     calendarDays[c].style.border = "1px solid"+calendar.chosenTheme;
                 }
@@ -1128,6 +1134,7 @@ function updateLiveInterval(val){
 // Add escape key to close modal
 document.addEventListener('keydown', (event) => {
     var fullScreenWrapper = document.querySelector(".fullScreenWrapper");
+    var calendarControls = document.querySelector("#calendarControls");
     //
     if (event.key === 'Escape') {
         calendar.closeModal(true); 
@@ -1139,6 +1146,16 @@ document.addEventListener('keydown', (event) => {
         }
         if(event.key === "ArrowRight"){
             gotoDatePanel(1);
+        }
+    }
+    // if settings is closed and panel is closed, use space bar to open panel
+    if (event.key === ' ' && calendar.isEditingContent == false) {
+        event.preventDefault();
+        //
+        if(calendarControls.style.display != "block" && fullScreenWrapper.style.display != "block"){
+            var calSquares = document.querySelectorAll(".calendarWrapper ul li");
+            var blackDate = calSquares[calendar.dayNum-1];
+            blackDate.click();
         }
     }
 });

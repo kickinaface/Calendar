@@ -243,4 +243,7 @@
     .previousMonthsWrapper ul li a{
         color: white !important;
     }
+    .dayObjects{
+        color: black;
+    }
 }
