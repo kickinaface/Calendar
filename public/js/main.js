@@ -50,16 +50,14 @@ function reloadCalendarPage(){
         window.location.reload();
     },1000);
 }
-function scrollToTop(isSync){
+
+function scrollToTop(){
     window.scrollTo({
         top: 0,
         behavior: 'smooth'
     });
-
-    if(isSync == true){
-        calendar.syncCal();
-    }
 }
+
 function autoSync(){
     // Sync Every hour
     if(isAutoSync == true){
@@ -69,42 +67,4 @@ function autoSync(){
             calendar.autoSync(true);
         },(1000*60)*60);
     }
-}
-function lockCalendar(){
-    superUtil.sendJSON({}, "/api/lockCal", function(status, response){
-        // Rewrite stored calendar value
-        if(status == 200){
-            console.log("response should redirect or refresh");
-            var response = JSON.parse(response);
-            if(response.redirect == true){
-                window.location.reload();
-            }
-            console.log("error ", response);
-        } else {
-            console.log("status ", status);
-            console.log("error ", response);
-        }
-    }, "POST");
-}
-function changePasscode(){
-    var passcode1 = document.querySelector("#passcode1");
-    if(passcode1.value != ""){
-        superUtil.sendJSON({newpass:passcode1.value}, "/api/changePasscode", function(status, response){
-            // Rewrite stored calendar value
-            if(status == 200){
-                console.log("response should redirect or refresh");
-                var response = JSON.parse(response);
-                if(response.redirect == true){
-                    window.location.reload();
-                }
-                console.log("error ", response);
-            } else {
-                console.log("status ", status);
-                console.log("error ", response);
-                alert(response.message);
-            }
-        }, "POST");
-    }
-    
-
 }

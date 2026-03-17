@@ -9,18 +9,36 @@
     <script src="js/superUtil.js"></script>
     <script src="js/calendar.js"></script>
     <script src="Years/2026/March/externalCalendar.js"></script>
-    <title>Calendar</title>
+    <title>Christopher's Digital Solutions: Calendar</title>
 </head>
 <body>
+    <!-- <script src="js/snowflakes.js"></script> -->
+    <script>
+        // new Snowflakes();
+        // [
+        //     '#FF69B4',
+        //     '#DC143C',
+        //     '#9ACD32',
+        //     '#FF8C00',
+        //     '#7FFFD4',
+        //     '#9370DB',
+        //     '#FFD700'
+        // ].forEach(function(item) {
+        //     new Snowflakes({
+        //         count: 15,
+        //         maxSize: 60,
+        //         color: item
+        //     });
+        // });
+    </script>
     <div class="navBar">
-        <span class="logo">Calendar</span>
+        <span class="logo">Christopher's Digital Solutions: Calendar</span>
     </div>
     <div class="fixedControlsWrapper">
-        <button onclick="lockCalendar();">Lock</button>
         <button onclick="toggleLiveInterval();" id="liveToggleBtn">
             LIVE Mode: <span style="color:red;">OFF</span>
         </button>
-        <button onclick="scrollToTop(true);">Sync</button>
+        <button onclick="scrollToTop();">Back to Top</button>
         <button onclick="reloadCalendarPage();">Refresh Calendar</button>
         <button id="autoSavingBtn" style="display: none;">💾  Auto Saving...</button>
     </div>
@@ -88,8 +106,8 @@
                     <li onmouseover="hoverSeasonOrb(1)" onmouseout="clearOrbHover()"></li>
                     <li onmouseover="hoverSeasonOrb(2)" onmouseout="clearOrbHover()"></li>
                     <li onmouseover="hoverSeasonOrb(3)" onmouseout="clearOrbHover()"></li>
-                    <li onmouseover="hoverSeasonOrb(4)" onmouseout="clearOrbHover()"></li>
-                    <li onmouseover="hoverSeasonOrb(5)" onmouseout="clearOrbHover()"><div style="color:white;">✖</div></li>
+                    <li onmouseover="hoverSeasonOrb(4)" onmouseout="clearOrbHover()"><div style="color:white;">✖</div></li>
+                    <li onmouseover="hoverSeasonOrb(5)" onmouseout="clearOrbHover()"></li>
                 </ul>
             </div>
             
@@ -114,19 +132,10 @@
                     <li><a href="/Years/2026/February/">February</a></li>
                 </ul>
             </div>
-            <br>
+            <br><br><br>
             <button onclick="calendar.toggleSettingsControls();" id="calControlButton">⚙️ <b><span>Show Settings</span></b> 🔧🛠️</button>
         </center>
         <div id="calendarControls">
-            <br>
-            <center>
-                <h2>Calendar Lock Code</h2>
-                <i>Create a passcode to lock your calendar and press the lock button</i>
-                <br>
-                <input type="password" id="passcode1"><br>
-                <button onclick="changePasscode();">Set Lock Code</button>
-            </center>
-            <br><br>
             <center>
                 <h2>Sync Calendar:</h2>
                 <i>Press the sync button to backup your data into the /backup/ folder to restore data from loss. 
@@ -139,7 +148,7 @@
                 <button onclick="calendar.importJSON();">Import JSON</button>
             </center>
             <br>
-            <div style="width: 100%; height: 420px; text-align: center; margin:0 auto;">
+            <div style="width: 100%; height: 200px; text-align: center; margin:0 auto;">
                     <h2>Apply Color Scheme:</h2>
                     <br>
                     <p><h3>Select Color:</h3></p>
@@ -178,8 +187,6 @@
                         <option value="300">5 min</option>
                     </select>
                     <button onclick="updateLiveInterval(document.querySelector('#refreshInt').value);">Update Interval</button>
-                <br>
-                <br>
                 <br>
                 <br>
             </div>

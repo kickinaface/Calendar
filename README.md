@@ -88,22 +88,10 @@ This is an example the JSON output of the current calendar being viewed. You can
 var externalCalendar =
 [{"day":1,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":2,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":3,"events":[],"tasks":[],"weekDay":"Thursday"},{"day":4,"events":[],"tasks":[],"weekDay":"Friday"},{"day":5,"events":[],"tasks":[],"weekDay":"Saturday"},{"day":6,"events":[],"tasks":[],"weekDay":"Sunday"},{"day":7,"events":[],"tasks":[],"weekDay":"Monday"},{"day":8,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":9,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":10,"events":[],"tasks":[],"weekDay":"Thursday"},{"day":11,"events":[],"tasks":[],"weekDay":"Friday"},{"day":12,"events":[],"tasks":[],"weekDay":"Saturday"},{"day":13,"events":[],"tasks":[],"weekDay":"Sunday"},{"day":14,"events":[],"tasks":[],"weekDay":"Monday"},{"day":15,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":16,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":17,"events":[],"tasks":[],"weekDay":"Thursday"},{"day":18,"events":[],"tasks":[],"weekDay":"Friday"},{"day":19,"events":[],"tasks":[],"weekDay":"Saturday"},{"day":20,"events":[],"tasks":[],"weekDay":"Sunday"},{"day":21,"events":[],"tasks":[],"weekDay":"Monday"},{"day":22,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":23,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":24,"events":[],"tasks":[],"weekDay":"Thursday"},{"day":25,"events":[],"tasks":[],"weekDay":"Friday"},{"day":26,"events":[],"tasks":[],"weekDay":"Saturday"},{"day":27,"events":[],"tasks":[],"weekDay":"Sunday"},{"day":28,"events":[],"tasks":[],"weekDay":"Monday"},{"day":29,"events":[],"tasks":[],"weekDay":"Tuesday"},{"day":30,"events":[],"tasks":[],"weekDay":"Wednesday"},{"day":31,"events":[],"tasks":[],"weekDay":"Thursday"}];
 ```
-## Live Mode
-Press the Live Mode button to make the calendar check and reload the data from the server on an interval for other viewers to see the updates. Use the controls in settings to change the rate of the data refresh.
-
-## Screen Lock
-Default code: 0000
-Change the code in then UI within settings then press: "Set Lock Code"
-
-## Keyboard Shortcuts
-Here are the keyboard shortcuts from the main screen when no modals or dialogs open.
-L = Lock Screen (Calendar will lock the screen and use password set or default passcode.)
-M = Toggle Live Mode (Press M to turn Live Mode on or off.)
-S = Save / Backup data to server.
-R = Refresh page.
 
 
    [node.js]: <http://nodejs.org>
    [express]: <http://expressjs.com>
    [JavaScript]: <https://www.javascript.com>
-   
+
+

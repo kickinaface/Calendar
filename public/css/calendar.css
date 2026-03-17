@@ -46,8 +46,6 @@
 }
     #calendarControls{
         display: none;
-        background: #efefef;
-        height: auto;
     }
 
 .eventWrapper, .taskWrapper{
@@ -247,8 +245,5 @@
     }
     .dayObjects{
         color: black;
-    }
-    #calendarControls {
-        color:black;
     }
 }

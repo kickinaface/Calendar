@@ -1001,7 +1001,7 @@ function updateSeasonStyles(hex){
     // manually list current season name
     var seasonName = document.querySelector("#seasonName");
     seasonName.style.opacity = "1";
-    seasonName.innerHTML = calendar.customSeasonNames[5];// change this when you change seasons...
+    seasonName.innerHTML = calendar.customSeasonNames[4];// change this when you change seasons...
 }
 function hoverSeasonOrb(element){
     var seasonName = document.querySelector("#seasonName");
@@ -1022,7 +1022,7 @@ function hoverSeasonOrb(element){
 }
 function clearOrbHover(){
     var seasonName = document.querySelector("#seasonName");
-    seasonName.innerHTML = calendar.customSeasonNames[5];// change this when you change seasons...
+    seasonName.innerHTML = calendar.customSeasonNames[4];// change this when you change seasons...
     seasonName.style.opacity = "1";
 }
 //kinda hacky
@@ -1131,7 +1131,7 @@ function updateLiveInterval(val){
     liveInterval = undefined;
     toggleLiveInterval(true, val);
 }
-// keyboard short cuts
+// Add escape key to close modal
 document.addEventListener('keydown', (event) => {
     var fullScreenWrapper = document.querySelector(".fullScreenWrapper");
     var calendarControls = document.querySelector("#calendarControls");
@@ -1139,30 +1139,13 @@ document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         calendar.closeModal(true); 
     }
-    // Only if modal is already open and not editing content, use keyboard arrows to use "panel wings"
+    // Only if modal is already open, use keyboard arrows to use "panel wings"
     if(fullScreenWrapper.style.display == "block" && calendar.isEditingContent == false){
         if(event.key === "ArrowLeft"){
             gotoDatePanel(-1);
         }
         if(event.key === "ArrowRight"){
             gotoDatePanel(1);
-        }
-    } else { // When on main screen and modal is closed and not editing content
-        // modal is closed main calendar is in view
-        if(event.key === "l" && calendar.isEditingContent == false && calendarControls.style.display != "block"){
-            lockCalendar();
-        }
-        // save by pressing s
-        if(event.key === "s" && calendar.isEditingContent == false && calendarControls.style.display != "block"){
-            scrollToTop(true);
-        }
-        // refresh by pressing r
-        if(event.key === "r" && calendar.isEditingContent == false && calendarControls.style.display != "block"){
-            reloadCalendarPage();
-        }
-        // toggle live mode by pressing m
-        if(event.key === "m" && calendar.isEditingContent == false && calendarControls.style.display != "block"){
-            toggleLiveInterval();
         }
     }
     // if settings is closed and panel is closed, use space bar to open panel
