@@ -1,0 +1,16 @@
+{
+  "name": "calendar",
+  "version": "3.4.1",
+  "description": "Calendar web application.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start main.js --name Calendar -- start"
+  },
+  "author": "Chris Carter Jr",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0"
+  }
+}

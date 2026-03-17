@@ -1,0 +1,254 @@
+.calendarWrapper {
+    padding: 0px 0px 0px 15px;
+    width: 100%;
+}
+    .calendarWrapper ul{
+        margin-top: 10px;
+        /* display: flex;
+        flex-wrap:wrap; */
+        list-style: none;
+        margin-left: 5%;
+    }
+    .calendarWrapper ul li {
+        background: #424242;
+        margin: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        padding: 10px;
+        text-align: center;
+        overflow-y: auto;
+        width: 13%;
+        height: 120px;
+        float: left;
+    }
+    .calendarWrapper ul li:active{
+        opacity:1 !important; 
+        color: transparent; /* make the text invisible */
+        user-select: none; /* prevent selection of the text */
+    }
+.dayTitle{
+    color:white;
+}
+.dayObjects{
+    width: 100%;
+}
+    .dayObjects div{
+        background: rgba(255, 255, 255, .8);
+        margin-bottom: 3px;
+        border-radius: 3px;
+        font-weight: bold;
+        color: black;
+    }
+
+.calendarOutputWrapper {
+    width: 100%;
+    float: left;
+}
+    #calendarControls{
+        display: none;
+        background: #efefef;
+        height: auto;
+    }
+
+.eventWrapper, .taskWrapper{
+    text-align: left;
+    background: white;
+    padding: 15px 15px 0px 15px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.taskTime, .eventTime{
+    width: 250px !important;
+}
+.previousMonthsWrapper{
+    width: 330px;
+    margin:0 auto;
+    padding-bottom:20px;
+}
+.previousMonthsWrapper ul li{
+    float: left;
+    margin-left:10px;
+    margin-right:20px;
+    list-style: none;
+}
+
+#seasonList{
+    list-style: none;
+    width: 150px;
+    margin-left:25px;
+}
+/* Hardcode season logic here for now */
+    #seasonList li{
+        width: 30px;
+        height: 30px;
+        border-radius: 16px;
+        background-color: white;
+        float: left;
+        margin: 5px;
+        border:1px solid #424242;
+        font-size: 14pt;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .repeatCount{
+        text-align: left;
+        width: 60px !important;
+    }
+
+#isEventRepeat, #isTaskRepeat{
+    width: 30px !important;
+    height: 30px !important;
+    margin-right:10px;
+}
+
+.progressTrack li{
+    list-style: none;
+    cursor: pointer;
+}
+
+#progressTableOutput li{
+    padding: 5px;
+    background-color: #efefef;
+}
+.arrowWrapper{
+    position: relative;
+    font-size: 20pt;
+    font-weight: bold;
+}
+#leftArrow{
+    position: absolute;
+    left: 0;
+    width: 50px;
+    background-color: #ffffff;
+    margin-top:5%;
+    margin-left: -70px;
+    padding-top:100px;
+    padding-bottom:100px;
+    cursor: pointer;
+    opacity: .8;
+}
+    #leftArrow:hover{
+        opacity: 1;
+    }
+#rightArrow{
+    position: absolute;
+    right: 0;
+    width: 50px;
+    background-color: #ffffff;
+    margin-top:5%;
+    margin-right:-70px;
+    padding-top:100px;
+    padding-bottom:100px;
+    cursor: pointer;
+    opacity: .8;
+}
+    #rightArrow:hover{
+        opacity: 1;
+    }
+
+.customLabel{
+    width: 100px !important;
+    margin-bottom: 10px;
+}
+
+/* Media Queries for mobile */
+@media (max-width: 1600px) {
+    .calendarWrapper ul li {
+        width: 10.4%;
+    }
+}
+@media (max-width: 1450px) {
+    .calendarWrapper ul li {
+        width: 12.5%;
+    }
+}
+@media (max-width: 1400px) {
+    .calendarWrapper ul li {
+        width: 15.3%;
+    }
+}
+@media (max-width: 1240px) {
+    .calendarWrapper ul li {
+        width: 14.9%;
+    }
+}
+@media (max-width: 1180px) {
+    .calendarWrapper ul li {
+        width: 14.8%;
+    }
+}
+
+@media (max-width: 1145px) {
+    .calendarWrapper ul li {
+        width: 14.6%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .calendarWrapper ul li {
+        width: 14.4%;
+    }
+}
+@media (max-width: 1050px) {
+    .calendarWrapper ul li {
+        width: 14%;
+    }
+}
+@media (max-width: 1000px) {
+    .calendarWrapper ul li {
+        width: 14.1%;
+    }
+}
+@media (max-width: 950px) {
+    .calendarWrapper ul li {
+        width: 13.9%;
+    }
+}
+@media (max-width: 925px) {
+    .calendarWrapper ul li {
+        width: 13.5%;
+    }
+}
+@media (max-width: 850px) {
+    .calendarWrapper ul li {
+        width: 25.5%;
+    }
+}
+@media (max-width: 800px) {
+    .calendarWrapper ul li {
+        width: 25.5%;
+    }
+}
+@media (max-width: 780px) {
+    .calendarWrapper ul li {
+        width: 24.3%;
+    }
+}
+@media (max-width: 750px) {
+    .calendarWrapper ul li {
+        width: 24.3%;
+    }
+}
+
+@media (max-width: 720px) {
+    .calendarWrapper ul li {
+        width: 24.3%;
+    }
+}
+
+@media (prefers-color-scheme: dark){
+    #progressTableOutput{
+        color:black;
+    }
+    .previousMonthsWrapper ul li a{
+        color: white !important;
+    }
+    .dayObjects{
+        color: black;
+    }
+    #calendarControls {
+        color:black;
+    }
+}
